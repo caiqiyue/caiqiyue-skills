@@ -1,0 +1,13 @@
+{
+  "name": "caiqiyue-skills",
+  "version": "1.0.0",
+  "description": "Custom skills for OpenCode - content-builder and more",
+  "opencode": {
+    "skills": [
+      {
+        "name": "content-builder",
+        "path": ".agents/skills/content-builder/SKILL.md"
+      }
+    ]
+  }
+}
