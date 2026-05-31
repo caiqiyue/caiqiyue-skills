@@ -27,6 +27,13 @@ Inspect the repository root for stack markers before writing anything.
 
 Read `references/profile-detection.md` and classify the repository using the closest matching profile.
 
+If the repository is empty or contains no useful stack markers:
+
+- immediately select `generic-full-stack-ai-app`
+- record that no markers were present
+- bootstrap the harness anyway
+- do not wait for more context before creating the control files
+
 Minimum output from detection:
 
 - selected profile

@@ -13,6 +13,12 @@ For MVP, a single generic profile is acceptable:
 
 - `generic-full-stack-ai-app`
 
+Empty repository fallback:
+
+- If the repository root has no stack markers at all, still select `generic-full-stack-ai-app`.
+- Record that the root was empty or marker-free.
+- Treat the verification surface as the harness control files themselves.
+
 Record:
 
 - selected profile

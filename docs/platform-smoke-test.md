@@ -314,5 +314,5 @@ Treat the harness as installed and working only if all of these are true:
 
 - `OpenCode` may need a manual `opencode.cmd` wrapper on Windows if npm leaves only temporary launcher files.
 - `OpenCode` model/provider choice matters. If one provider fails, switch to a working free model first before blaming the harness.
+- In this local Windows environment, `OpenCode` succeeded in a repo that already had project markers, but it did not reliably complete write tasks in brand-new empty folders. `Codex` and `Claude Code` both passed the empty-folder cold-start test.
 - `Codex` can emit unrelated warnings from other local plugins or skills. Those warnings do not necessarily mean `personal-harness` failed.
-
