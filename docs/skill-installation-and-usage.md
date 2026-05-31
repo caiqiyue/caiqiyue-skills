@@ -10,11 +10,12 @@
 
 先把最重要的话说清楚：
 
-**当前仓库已经有设计文档，但还没有把三端都可安装的 harness adapter 全部实现出来。**
+**当前仓库已经有设计文档，并且已经实现了第一版 `Codex skill` MVP，但还没有把三端都可安装的 harness adapter 全部实现出来。**
 
 所以你现在能“安装”的，主要还是：
 
-- 阅读和复用设计
+- 安装和试用当前的 `Codex skill`
+- 阅读和复用共享模板与设计
 - 复用现有 OpenCode 风格 skill 资产
 
 而你真正想要的那套：
@@ -65,14 +66,14 @@
 
 - `docs/personal-ai-harness-framework-design.md`
 - `docs/personal-harness-skill-delivery-plan.md`
+- `core/` 下的共享规范与项目模板
+- `adapters/codex-skill/personal-harness/` 第一版真实 skill
 - 现有 OpenCode 风格 skill 资产：
   - `.agents/skills/content-builder/SKILL.md`
   - `package.json` 中的 `opencode.skills`
 
 当前仓库还没有完整落地的内容：
 
-- `core/`
-- `adapters/codex-skill/`
 - `adapters/claude-plugin/`
 - `adapters/opencode/`
 - `scripts/sync-core-to-adapters.*`
@@ -96,34 +97,69 @@
 
 ## 4.2 如果你的目标是“把它用于真实项目”
 
-当前阶段推荐做法不是直接装 plugin，而是：
+当前阶段推荐做法是先用已经实现的 `Codex skill` MVP，或者直接复用 `core/templates/project-ai-framework/`：
 
-1. 选一个真实项目
-2. 按设计文档手工落第一版：
-   - `AGENTS.md`
-   - `CLAUDE.md`
-   - `.ai/docs/`
-   - `.ai/policies/`
-   - `.ai/state/`
-   - `.ai/verify/`
-3. 把两条硬规则写进去：
-   - 未经验证不能说完成
-   - 一次只做一个 feature
-4. 用这个框架先跑一轮真实需求
+### 路径 A：先安装当前 Codex skill MVP
 
-这是最稳的路径，因为当前阶段真正成熟的是“方法论”，不是“打包产物”。
+当前真实 skill 位于：
+
+```text
+adapters/codex-skill/personal-harness/
+```
+
+把它复制到本机 Codex skills 目录，例如：
+
+```text
+~/.codex/skills/personal-harness/
+```
+
+至少应复制这些内容：
+
+- `SKILL.md`
+- `agents/openai.yaml`
+- `references/`
+- `assets/project-ai-framework/`
+
+装完后，在目标仓库中触发 `personal-harness`，它应引导你：
+
+1. 识别当前仓库 profile
+2. 初始化最小 `.ai` 框架
+3. 登记唯一 active feature
+4. 进入 verified workflow
+
+### 路径 B：直接复用模板手工初始化
+
+如果你暂时不想装 skill，也可以直接复制：
+
+```text
+core/templates/project-ai-framework/
+```
+
+到你的真实项目里，然后按模板填充状态和规则。
+
+### 为什么先这样做
+
+因为当前阶段已经成熟的是：
+
+- `Codex skill` MVP
+- `core` 共享模板
+
+而不是三端完全统一的自动安装体系。
 
 ---
 
 ## 5. 目标阶段的安装方式
 
-等这个仓库按交付方案实现完之后，建议按三端分别安装。
+当前已经实现的是 `Codex skill`，其余两端还是目标阶段。
 
 ## 5.1 Codex
 
-### 目标产物
+### 当前已实现产物
 
 - `adapters/codex-skill/personal-harness/`
+
+### 目标产物
+
 - 可选：`adapters/codex-plugin/personal-harness-plugin/`
 
 ### 安装思路
@@ -142,6 +178,8 @@
 - `agents/openai.yaml`
 - `references/`
 - `assets/project-ai-framework/`
+
+这部分现在已经在仓库里存在，可以直接复制安装。
 
 #### Plugin 版
 
@@ -360,16 +398,15 @@
 
 如果你问“安装后怎么用最合理”，我的建议是：
 
-1. 先不要追求三端都全自动
-2. 先选一个真实项目
-3. 用这套方法把 `.ai/` 框架立起来
-4. 先跑一轮真实需求
-5. 再把共用内容沉淀进 `core/`
-6. 再生成 Codex / Claude / OpenCode 适配器
+1. 先在一个真实项目里试跑当前 `Codex skill`
+2. 验证 `.ai/` 初始化和 active feature 约束是否符合你的习惯
+3. 再补细分 profile
+4. 再生成 Claude / OpenCode adapter
+5. 最后补同步脚本
 
 也就是说：
 
-**先用真实项目验证 harness，再把它打包成 skill / plugin。**
+**先用真实项目验证当前 skill，再扩成完整的跨平台产品族。**
 
 这是最稳的做法。
 
@@ -379,11 +416,10 @@
 
 如果要把这份说明真正变成“可安装”，下一步最值得做的是：
 
-1. 建 `core/`
-2. 建 `adapters/codex-skill/`
+1. 在真实项目里验证当前 `adapters/codex-skill/personal-harness/`
+2. 拆细 profile
 3. 建 `adapters/claude-plugin/`
 4. 建 `adapters/opencode/`
 5. 建 `scripts/sync-core-to-adapters.*`
 
 做到这一步，这份说明里的安装步骤就会从“目标方案”变成“真实可执行步骤”。
-

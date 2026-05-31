@@ -1,0 +1,5 @@
+version: 1
+interface:
+  display_name: Personal Harness
+  short_description: Detect repo profile, bootstrap a minimal .ai harness, and enforce one-feature verified workflow.
+  default_prompt: Initialize or repair the personal AI harness for this repository, detect the profile, set one active feature, and enter the standard verified workflow.
