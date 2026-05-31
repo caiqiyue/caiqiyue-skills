@@ -1,12 +1,16 @@
 {
   "name": "caiqiyue-skills",
   "version": "1.0.0",
-  "description": "Custom skills for OpenCode - content-builder and more",
+  "description": "Cross-platform AI engineering skills for Codex, Claude Code, and OpenCode",
   "opencode": {
     "skills": [
       {
         "name": "content-builder",
         "path": ".agents/skills/content-builder/SKILL.md"
+      },
+      {
+        "name": "personal-harness",
+        "path": "adapters/opencode/.opencode/skills/personal-harness/SKILL.md"
       }
     ]
   }

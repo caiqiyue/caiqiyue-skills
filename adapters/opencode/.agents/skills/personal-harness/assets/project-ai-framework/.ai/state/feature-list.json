@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "activeTaskId": "feature-001",
+  "features": [
+    {
+      "id": "feature-001",
+      "name": "Replace with your current feature",
+      "description": "Describe the only feature currently allowed to move.",
+      "scope": [
+        "List in-scope changes here."
+      ],
+      "out_of_scope": [
+        "List explicit non-goals here."
+      ],
+      "status": "active",
+      "verification": [
+        "Document the verification steps required before completion."
+      ],
+      "evidence": [],
+      "ownerRole": "implementer",
+      "updatedAt": "YYYY-MM-DD"
+    }
+  ]
+}

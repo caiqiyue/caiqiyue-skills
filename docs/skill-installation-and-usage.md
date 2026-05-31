@@ -6,25 +6,19 @@
 
 - 这个仓库里的“个人 harness skill”到底是什么
 - 现在这个仓库处于什么阶段
-- 后续正式做成 `Codex` / `Claude Code` / `OpenCode` 适配器后，应该怎么安装和使用
+- 当前这套 `Codex` / `Claude Code` / `OpenCode` adapter 应该怎么安装和使用
 
 先把最重要的话说清楚：
 
-**当前仓库已经有设计文档，并且已经实现了第一版 `Codex skill` MVP，但还没有把三端都可安装的 harness adapter 全部实现出来。**
+**当前仓库已经有设计文档，并且已经实现了 `Codex`、`Claude Code`、`OpenCode` 三端的第一批真实 adapter / skill 入口，但还没有把三端都打磨成成熟版本。**
 
-所以你现在能“安装”的，主要还是：
+所以你现在能“安装”的，已经包括：
 
 - 安装和试用当前的 `Codex skill`
+- 安装和试用当前的 `Claude Code plugin`
+- 安装和试用当前的 `OpenCode adapter`
 - 阅读和复用共享模板与设计
 - 复用现有 OpenCode 风格 skill 资产
-
-而你真正想要的那套：
-
-- `Codex skill`
-- `Claude plugin`
-- `OpenCode adapter`
-
-是下一阶段要按设计文档实现的内容。
 
 ---
 
@@ -68,14 +62,15 @@
 - `docs/personal-harness-skill-delivery-plan.md`
 - `core/` 下的共享规范与项目模板
 - `adapters/codex-skill/personal-harness/` 第一版真实 skill
+- `adapters/claude-plugin/personal-harness-plugin/` 第一版真实 Claude plugin
+- `adapters/opencode/` 第一版真实 OpenCode adapter
 - 现有 OpenCode 风格 skill 资产：
   - `.agents/skills/content-builder/SKILL.md`
   - `package.json` 中的 `opencode.skills`
 
 当前仓库还没有完整落地的内容：
 
-- `adapters/claude-plugin/`
-- `adapters/opencode/`
+- 细分 profile
 - `scripts/sync-core-to-adapters.*`
 
 所以这份说明里，“安装”要分：
@@ -142,15 +137,17 @@ core/templates/project-ai-framework/
 因为当前阶段已经成熟的是：
 
 - `Codex skill` MVP
+- `Claude Code plugin` MVP
+- `OpenCode adapter` MVP
 - `core` 共享模板
 
-而不是三端完全统一的自动安装体系。
+而不是三端完全自动同步的成熟安装体系。
 
 ---
 
-## 5. 目标阶段的安装方式
+## 5. 当前可安装方式
 
-当前已经实现的是 `Codex skill`，其余两端还是目标阶段。
+当前已经实现了三端的第一版安装入口。
 
 ## 5.1 Codex
 
@@ -158,7 +155,7 @@ core/templates/project-ai-framework/
 
 - `adapters/codex-skill/personal-harness/`
 
-### 目标产物
+### 后续增强产物
 
 - 可选：`adapters/codex-plugin/personal-harness-plugin/`
 
@@ -218,22 +215,35 @@ core/templates/project-ai-framework/
 
 ## 5.2 Claude Code
 
-### 目标产物
+### 当前已实现产物
 
-- `adapters/claude-plugin/plugins/personal-harness-plugin/`
-- `adapters/claude-plugin/.claude-plugin/marketplace.json`
+- `adapters/claude-plugin/personal-harness-plugin/`
+
+其中已经包含：
+
+- `.claude-plugin/plugin.json`
+- `skills/personal-harness/SKILL.md`
+- `agents/{planner,implementer,reviewer,verifier}.md`
+- `assets/project-ai-framework/`
 
 ### 安装思路
 
-用 Claude Code plugin / marketplace 方式安装。
+用 Claude Code 本地 plugin 方式安装。
 
 目标 plugin 目录中至少应包含：
 
 - `.claude-plugin/plugin.json`
 - `skills/personal-harness/SKILL.md`
 - `agents/*.md`
-- `hooks/hooks.json`
 - `assets/project-ai-framework/`
+
+当前仓库里这套内容已经存在，可以直接把：
+
+```text
+adapters/claude-plugin/personal-harness-plugin/
+```
+
+作为本地 plugin 目录使用。
 
 ### 装完后怎么用
 
@@ -246,24 +256,19 @@ core/templates/project-ai-framework/
    - `implementer`
    - `reviewer`
    - `verifier`
-4. hooks 在关键节点做约束：
-   - 修改后提醒同步 state
-   - 声称完成前检查证据
-   - 高风险操作前触发保护
 
 ### 成功标准
 
 - plugin 可加载
 - skill 可触发
 - subagents 可见
-- hooks 生效
 - 模板可被用来初始化项目
 
 ---
 
 ## 5.3 OpenCode
 
-### 目标产物
+### 当前已实现产物
 
 - `adapters/opencode/`
 
@@ -271,8 +276,7 @@ core/templates/project-ai-framework/
 
 - `.opencode/skills/personal-harness/SKILL.md`
 - `.opencode/agents/*.md`
-- `.opencode/commands/*.md`
-- 可选：`.opencode/plugins/harness-guard.ts`
+- `.opencode/plugins/harness-guard.js`
 - `AGENTS.md`
 
 兼容层可保留：
@@ -283,7 +287,7 @@ core/templates/project-ai-framework/
 
 如果是本地仓库型使用，通常是：
 
-1. 把 adapter 内容放进目标仓库或工具可识别位置
+1. 把 `adapters/opencode/` 下的内容放进目标仓库或工具可识别位置
 2. 确保 `AGENTS.md` 和 `opencode.json` / `.opencode/` 配置可被读取
 3. 如有 plugin，再按 OpenCode 的 plugin 机制加载
 
@@ -293,7 +297,7 @@ core/templates/project-ai-framework/
 
 1. 进入项目
 2. 让 OpenCode 读取 `AGENTS.md`
-3. 通过 skill 或 commands 触发：
+3. 通过 skill 触发：
    - 初始化 harness
    - 验证 active feature
    - 生成 handoff
@@ -303,7 +307,6 @@ core/templates/project-ai-framework/
 
 - rules 被读取
 - skill 被识别
-- commands 可触发
 - agents 可调用
 - 如实现 plugin，plugin 可加载
 
@@ -398,11 +401,10 @@ core/templates/project-ai-framework/
 
 如果你问“安装后怎么用最合理”，我的建议是：
 
-1. 先在一个真实项目里试跑当前 `Codex skill`
+1. 先在一个真实项目里分别试跑当前 `Codex` / `Claude Code` / `OpenCode` 入口
 2. 验证 `.ai/` 初始化和 active feature 约束是否符合你的习惯
 3. 再补细分 profile
-4. 再生成 Claude / OpenCode adapter
-5. 最后补同步脚本
+4. 最后补同步脚本
 
 也就是说：
 
@@ -416,10 +418,11 @@ core/templates/project-ai-framework/
 
 如果要把这份说明真正变成“可安装”，下一步最值得做的是：
 
-1. 在真实项目里验证当前 `adapters/codex-skill/personal-harness/`
+1. 在真实项目里分别验证：
+   - `adapters/codex-skill/personal-harness/`
+   - `adapters/claude-plugin/personal-harness-plugin/`
+   - `adapters/opencode/`
 2. 拆细 profile
-3. 建 `adapters/claude-plugin/`
-4. 建 `adapters/opencode/`
-5. 建 `scripts/sync-core-to-adapters.*`
+3. 建 `scripts/sync-core-to-adapters.*`
 
 做到这一步，这份说明里的安装步骤就会从“目标方案”变成“真实可执行步骤”。

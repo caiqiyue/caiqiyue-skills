@@ -6,7 +6,7 @@
 - `Claude Code`
 - `OpenCode`
 
-当前仓库已经包含两份核心设计文档，以及第一版真实 skill MVP。
+当前仓库已经包含两份核心设计文档，以及三端适配中的第一批真实 skill / plugin 入口。
 
 核心设计文档：
 
@@ -20,20 +20,24 @@
 
 ## 当前状态
 
-当前仓库已经进入 **设计 + 第一版实现** 阶段，但还不是完整的三端可安装成品。
+当前仓库已经进入 **设计 + 第一版实现** 阶段，已经具备三端真实入口，但还不是完全成熟的三端成品。
 
 也就是说：
 
 - 设计文档已经到位
 - `Codex skill` MVP 已经落地
+- `Claude Code plugin` MVP 已经落地
+- `OpenCode adapter` MVP 已经落地
 - OpenCode 风格的现有 skill 资产还在
-- `Codex` / `Claude Code` / `OpenCode` 三端统一的 harness adapter 还没有全部实现
+- 三端适配已经都有入口，但细分 profile 和同步脚本还没补齐
 
 当前已经可直接查看和复用的真实产物：
 
 - [core/harness-spec](core/harness-spec)
 - [core/templates/project-ai-framework](core/templates/project-ai-framework)
 - [adapters/codex-skill/personal-harness](adapters/codex-skill/personal-harness)
+- [adapters/claude-plugin/personal-harness-plugin](adapters/claude-plugin/personal-harness-plugin)
+- [adapters/opencode](adapters/opencode)
 
 这很重要，因为安装和使用方式要分两种情况看：
 
@@ -53,7 +57,10 @@
 3. 然后读 [adapters/codex-skill/personal-harness/SKILL.md](adapters/codex-skill/personal-harness/SKILL.md)  
    这是第一版真实 `Codex skill`。
 
-4. 最后读 [docs/skill-installation-and-usage.md](docs/skill-installation-and-usage.md)  
+4. 再看 [adapters/claude-plugin/personal-harness-plugin](adapters/claude-plugin/personal-harness-plugin) 和 [adapters/opencode](adapters/opencode)  
+   这是 `Claude Code` 和 `OpenCode` 的第一版真实 adapter。
+
+5. 最后读 [docs/skill-installation-and-usage.md](docs/skill-installation-and-usage.md)  
    看当前已实现的安装/使用方式，以及后续三端完整落地后的路径。
 
 ## 计划中的仓库形态
@@ -87,11 +94,10 @@ caiqiyue-skills/
 
 如果你要继续推进这个仓库，推荐顺序是：
 
-1. 在真实项目里试跑当前 `Codex skill` MVP
+1. 在真实项目里分别试跑 `Codex` / `Claude Code` / `OpenCode` 的当前入口
 2. 把细分 profile 从通用版补成 `langgraph-django-react` / `springboot-vue`
-3. 再做 `Claude plugin`，把 subagents + hooks 加进去
-4. 最后做 `OpenCode adapter`
-5. 最后补 `scripts/sync-core-to-adapters.*`
+3. 加上跨端安装验证脚本或手册
+4. 最后补 `scripts/sync-core-to-adapters.*`
 
 更细的安装和使用说明见：
 
