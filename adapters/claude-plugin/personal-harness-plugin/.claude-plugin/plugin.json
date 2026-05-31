@@ -3,5 +3,8 @@
   "name": "personal-harness-plugin",
   "displayName": "Personal Harness",
   "version": "0.1.0",
-  "description": "Bootstrap a minimal verified single-feature AI engineering harness for repositories."
+  "description": "Bootstrap a minimal verified single-feature AI engineering harness for repositories.",
+  "author": {
+    "name": "caiqiyue"
+  }
 }
