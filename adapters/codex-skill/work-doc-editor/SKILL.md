@@ -1,0 +1,311 @@
+---
+name: work-doc-editor
+description: Use when preparing, revising, or finalizing Markdown workplace documents such as leadership updates, technical summaries, feature design proposals, development plans, project reports, handoff notes, work syncs, retrospectives, diagnosis reports, evaluation reports, review reports, coaching analysis, or experience-sharing docs. Especially use after AI has drafted content and the final output should be concise, readable, human-sounding, easy for leaders or teammates to skim, and visibly grounded in the author's judgment, evidence, root-cause thinking, tradeoffs, risks, and next actions.
+---
+
+# Work Doc Editor
+
+Rewrite AI-generated or rough Markdown into a final workplace document that reads like a real employee prepared it for leaders, teammates, or future handoff.
+
+This is a **forced rewrite skill**, not a review-only skill. When it triggers, produce the improved final document directly unless the user explicitly asks only for critique.
+
+## Core Goal
+
+The document should help readers make sense of the work quickly:
+
+- A busy leader can understand the conclusion in about 1 minute.
+- A teammate can find the relevant details without reading everything.
+- The author can understand the topic better after reading the final version.
+- The document shows judgment, tradeoffs, uncertainty, and next steps instead of only AI-style information expansion.
+- The reader can tell what is confirmed, what is inferred, and what still needs human follow-up.
+- The main body stays light; detailed lists and deep reference material are moved to appendices or follow-up docs.
+
+Use this principle:
+
+> AI can help expand information, but the final document must preserve the author's judgment and responsibility boundaries.
+
+Also use this document-shaping rule:
+
+> The main body explains judgment and direction. Appendices carry detailed lists, raw references, and optional deep dives.
+
+## Reader Pressure Test
+
+Before rewriting, infer the primary reader and the action they need to take.
+
+For a leader, optimize for:
+
+- **Decision**: what needs approval, rejection, prioritization, or awareness.
+- **Confidence**: what has been verified and what is still uncertain.
+- **Risk**: what could affect schedule, quality, cost, user impact, or cross-team coordination.
+- **Accountability**: what the author recommends and what they will do next.
+
+For a teammate, optimize for:
+
+- **Context**: what changed and why it matters.
+- **Handoff**: what they need to know to continue work.
+- **Details**: where the important implementation, requirement, or process information lives.
+- **Open questions**: what should not be assumed yet.
+
+If the draft does not make the reader's expected action clear, add a short `需要你关注/确认` section near the top.
+
+## Editing Workflow
+
+### 1. Identify Document Intent, Type, and Reader
+
+First classify what job the document is doing. The same Markdown format should be edited differently depending on intent:
+
+- **Inform**: help readers understand status, background, or project shape. Optimize for conclusion, context, and reading path.
+- **Decide**: help someone approve, reject, prioritize, or choose. Optimize for options, tradeoffs, recommendation, and decision needed.
+- **Diagnose**: explain what is wrong, why it happened, and how to improve. Optimize for evidence, root cause, severity, and corrective action.
+- **Review/evaluate**: judge whether another report, plan, diagnosis, or output is reasonable. Optimize for criteria, evidence comparison, disagreements, and revision suggestions.
+- **Handoff**: help someone continue work. Optimize for current state, ownership, dependencies, open issues, and next steps.
+- **Teach/share**: help the author or team reuse an experience. Optimize for scenario, mistake, lesson, and checklist.
+
+After choosing the intent, pick the closest document type and optimize for that reader need.
+
+Common types:
+
+- **Leadership update**: conclusion, current status, risk, decision needed, next action.
+- **Technical summary**: module responsibilities, key paths, important constraints, gotchas, verification status.
+- **Feature/design proposal**: recommendation, alternatives considered, tradeoffs, scope boundaries, risks, open questions.
+- **Development plan**: target outcome, task breakdown, dependencies, risks, validation, rollout or handoff notes.
+- **Handoff/work sync**: what changed, what remains, owner/context, next steps, unresolved points.
+- **Diagnosis/report review**: findings, evidence, root cause, whether the original diagnosis is reasonable, what is missing, and what should change.
+- **Experience sharing/retrospective**: situation, mistake or insight, what worked, reusable lesson, next-time checklist.
+
+If the type is mixed, choose the dominant reader goal and keep secondary content in later sections.
+
+### 2. Mark Evidence and Confidence
+
+A strong work document should not make every sentence sound equally certain. When useful, label content with lightweight markers:
+
+- **已确认**: supported by source material, code reading, explicit requirement, meeting note, test result, or other concrete input.
+- **我的判断**: reasoned conclusion based on available information.
+- **待确认**: missing fact, dependency, stakeholder decision, or unverified assumption.
+- **建议**: action the author recommends.
+
+Do not over-label every bullet. Use these labels where confusion or overconfidence would create risk.
+
+If a conclusion is based only on the AI draft, avoid presenting it as verified. Write:
+
+```md
+基于当前材料，我暂时判断为 xxx；但还需要确认 xxx，避免后续理解偏差。
+```
+
+### 3. Restructure for Skimming
+
+Put the most useful content first. Prefer this shape unless the user provides a required format:
+
+```md
+# Clear Specific Title
+
+## 先看结论
+- 当前状态：
+- 需要你关注/确认：
+- 我的判断：
+- 建议动作：
+- 主要风险：
+
+## 阅读路径
+- 只看结论：看「[先看结论](#先看结论)」
+- 评审方案：看「[关键链路](#关键链路)」和「[我的分析](#我的分析)」
+- 跟进执行：看「[下一步](#下一步)」
+- 查详细清单：看「[附录](#附录)」
+
+## 背景
+
+## 关键链路
+- 用 3-6 行说明主流程或核心逻辑。
+- 不在正文铺满 API、文件、依赖或配置清单。
+
+## 我的分析
+- 为什么我这么判断：
+- 我排除了哪些方案：
+- 当前风险：
+- 不确定点：
+
+## 我的理解与补充
+- 我目前真正理解的是：
+- 我还没完全想清楚的是：
+- 后续我想继续补充的是：
+
+## 下一步
+
+## 附录
+```
+
+Omit or rename sections when they do not fit. Do not keep empty sections except `我的理解与补充`, which may contain clear placeholders for the author to fill in.
+
+For long documents, add a short table of contents or reading path near the top. Use Markdown heading links for jump navigation when the target sections exist. Avoid a large nested outline that makes the document feel heavier.
+
+### 3.1 Keep the Main Body Light
+
+Do not solve every reader need in the main body. Keep the main body focused on:
+
+- Conclusion and current status.
+- What the reader needs to decide, confirm, or do.
+- The shortest useful explanation of the core flow.
+- The author's judgment, risk, and next step.
+- The author's current understanding and what still needs digestion.
+
+Move these to appendices or follow-up sections when they are useful but not essential to the first read:
+
+- Full API endpoint lists.
+- File-by-file responsibility maps.
+- Dependency lists.
+- Environment variable lists.
+- Detailed runbooks.
+- Full call chains.
+- Raw research notes.
+- Glossaries and term explanations.
+
+When adding an appendix, keep it short and clearly optional. If the detail is not needed now, write a follow-up action instead of adding the appendix.
+
+### 4. Remove AI Flavor
+
+Rewrite into direct workplace language:
+
+- Replace vague phrases like "体系化建设", "赋能", "闭环", "抓手", "全链路", "深度融合", "持续优化" with concrete statements.
+- Delete generic introductions, repeated summaries, and obvious filler.
+- Avoid over-polished parallel lists that sound generated.
+- Use "我建议", "我判断", "我担心", "暂不建议", "还需要确认" when the document needs ownership.
+- Prefer short paragraphs and practical bullets over dense essay text.
+- Keep professional terms only when they are necessary and likely understood by the target reader.
+- Remove "correct but useless" content: definitions, broad industry background, generic benefits, or textbook explanations that do not affect this work.
+
+Do not make the document casual at the cost of clarity. "Human-sounding" means specific, accountable, and readable.
+
+Watch for phrases that make leaders suspect the author did not digest the content:
+
+- Big claims without an example, owner, risk, or next step.
+- Many abstract nouns and no concrete project detail.
+- Balanced pros/cons that avoid a recommendation.
+- Long background before the actual ask.
+- "Everything is important" structure where no priority is visible.
+
+### 5. Add Human Judgment
+
+If the draft lacks judgment, add clearly marked sections without inventing facts:
+
+- **我的判断**: what the author thinks based on the available information.
+- **为什么这么判断**: observable reasons, evidence, code findings, requirement constraints, or experience.
+- **取舍**: why one option is preferred and what is not being chosen.
+- **风险**: what could go wrong and how serious it is.
+- **待确认**: facts that are not yet verified.
+- **下一步**: specific actions, owners, or decisions needed when known.
+- **我需要补充的个人判断**: a placeholder when the author must add real firsthand thinking.
+
+When the source content does not support a conclusion, write it as uncertainty:
+
+```md
+我目前倾向于 A，但这里还缺少 xxx 的验证，所以不能直接定成最终结论。
+```
+
+Never fabricate research, validation, stakeholder feedback, code behavior, metrics, or personal experience.
+
+### 5.1 Strengthen Diagnostic and Evaluation Reports
+
+Use this section when the document diagnoses a person, process, product, project, business issue, report quality, coaching record, review record, or any AI-generated analysis.
+
+Do not stop at "发现了哪些问题". A useful diagnostic report should show:
+
+- **问题是什么**: state the issue in plain language.
+- **证据是什么**: quote or summarize the relevant behavior, record, data point, requirement, code path, or source material.
+- **为什么是问题**: explain the impact on the business, user, team, delivery, quality, or learning goal.
+- **可能根因**: identify the likely cause, not only the surface symptom.
+- **严重程度/优先级**: say which issue matters most and why.
+- **建议动作**: give a concrete next step, owner, practice method, correction, or validation method.
+- **待确认**: mark anything the source material does not prove.
+
+Prefer this shape for each important finding:
+
+```md
+### 问题 1：一句话说清问题
+- 证据：
+- 我的判断：
+- 可能根因：
+- 影响：
+- 建议动作：
+- 待确认：
+```
+
+If the source is "diagnosis report + original record", compare them explicitly:
+
+- **诊断报告说了什么**
+- **原始记录是否支持这个判断**
+- **我同意/不同意的地方**
+- **诊断遗漏了什么**
+- **应该如何改写或补充**
+
+Avoid high-level labels unless they are immediately explained. For example, replace or explain terms like "认知偏差", "结构化表达不足", "业务敏感度不够", "需求洞察不足", "缺少闭环意识", "方法论沉淀不足" with observable behavior:
+
+```md
+不要只写：业务敏感度不够。
+改成：他能复述客户问题，但没有继续追问这个问题影响哪个业务指标，所以后续建议停在表面。
+```
+
+For coaching or performance-related reports, keep the tone fair:
+
+- Critique behavior and evidence, not personality.
+- Do not exaggerate from one record into a broad character judgment.
+- Separate "this record shows" from "I infer".
+- Give at least one concrete improvement path.
+
+### 6. Preserve Author Learning
+
+Always make the document useful to the author, not only the audience.
+
+Include a section named `我的理解与补充` when the topic is complex, AI-generated, or likely to be reused later. This section should help the author convert AI output into their own understanding.
+
+Use one of these patterns:
+
+```md
+## 我的理解与补充
+- 我目前真正理解的是：
+- 这件事容易误解的地方是：
+- 我还需要继续确认的是：
+```
+
+or:
+
+```md
+## 我的理解与补充
+这里先保留给我补充自己的判断、疑问和后续理解。当前我需要重点补充：
+- 
+```
+
+Do not pretend the author has already added personal reflections. If personal content is missing, leave honest placeholders.
+
+### 7. Control Length
+
+Make the document shorter unless the user explicitly needs a comprehensive reference.
+
+- Put details after conclusions.
+- Merge repeated points.
+- Remove background that does not affect the decision or understanding.
+- Use appendices only for large technical details, logs, raw analysis, or exhaustive comparisons.
+- Keep each section focused on one job.
+- Prefer one useful concrete example over three generic explanations.
+- Prefer "入口 + priority" over exhaustive coverage. For example, say "先看 `/extract` 链路" instead of listing every related function.
+- If adding detail would make a busy reader stop reading, move it to an appendix or turn it into a next-step task.
+
+### 8. Final Quality Check
+
+Before answering, check:
+
+- Does the first screen explain what the document is about and what conclusion matters?
+- Does the first screen show what the reader is expected to decide, confirm, or do?
+- Can a leader or teammate skip to the relevant part?
+- Are facts, judgments, assumptions, and recommendations distinguishable?
+- Are risks and uncertain points visible?
+- Is there a place for the author to add their own thinking?
+- Did the rewrite remove AI-style filler without removing important meaning?
+- Would a skeptical leader think the author has personally understood the topic, or only pasted a polished AI answer?
+- Is the main body short enough to read without opening every detail section?
+
+## Output Rules
+
+- Output the final Markdown document directly.
+- If the user asks to modify an existing file, update the file instead of only showing text.
+- If you changed an existing draft, optionally add a brief note after the document only when useful: "已按结论前置、去套话、补判断和下一步重排。"
+- Do not add a long explanation of the editing process unless requested.
