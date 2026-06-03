@@ -189,6 +189,7 @@ Rewrite into direct workplace language:
 - Prefer short paragraphs and practical bullets over dense essay text.
 - Keep professional terms only when they are necessary and likely understood by the target reader.
 - Remove "correct but useless" content: definitions, broad industry background, generic benefits, or textbook explanations that do not affect this work.
+- Explain necessary professional terms the first time they appear, especially in the conclusion or first-screen summary.
 
 Do not make the document casual at the cost of clarity. "Human-sounding" means specific, accountable, and readable.
 
@@ -199,6 +200,28 @@ Watch for phrases that make leaders suspect the author did not digest the conten
 - Balanced pros/cons that avoid a recommendation.
 - Long background before the actual ask.
 - "Everything is important" structure where no priority is visible.
+
+### 4.1 Explain Terms Without Turning the Doc Into a Glossary
+
+When a necessary term may block understanding, translate it into plain language immediately. Do this especially for technical, business, algorithmic, legal, financial, diagnostic, or process terms.
+
+Use one of these patterns:
+
+```md
+`content_hash` 可以理解成“资源内容的指纹”。内容没变，指纹就一样，系统就不用重复构建。
+```
+
+```md
+事务可以理解成“一次打包提交”：要么全部写成功，要么失败回滚，避免只写进去一半。
+```
+
+Rules:
+
+- Do not put unexplained jargon in `先看结论`.
+- If a term is essential, explain it in the same bullet or add a short `先把几个词说白` section.
+- Prefer "term + plain-language explanation + why it matters" over dictionary definitions.
+- If the term is not essential to the reader's decision or understanding, remove it or move it to an appendix.
+- Replace vague high-level labels with observable behavior or concrete examples.
 
 ### 5. Add Human Judgment
 
