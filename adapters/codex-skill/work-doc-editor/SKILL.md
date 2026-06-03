@@ -60,6 +60,7 @@ First classify what job the document is doing. The same Markdown format should b
 - **Review/evaluate**: judge whether another report, plan, diagnosis, or output is reasonable. Optimize for criteria, evidence comparison, disagreements, and revision suggestions.
 - **Handoff**: help someone continue work. Optimize for current state, ownership, dependencies, open issues, and next steps.
 - **Teach/share**: help the author or team reuse an experience. Optimize for scenario, mistake, lesson, and checklist.
+- **Explain/transfer**: help readers understand a system, mechanism, migration, or design change. Optimize for mental model, what changed, why it matters, key boundaries, and where to look next.
 
 After choosing the intent, pick the closest document type and optimize for that reader need.
 
@@ -72,6 +73,7 @@ Common types:
 - **Handoff/work sync**: what changed, what remains, owner/context, next steps, unresolved points.
 - **Diagnosis/report review**: findings, evidence, root cause, whether the original diagnosis is reasonable, what is missing, and what should change.
 - **Experience sharing/retrospective**: situation, mistake or insight, what worked, reusable lesson, next-time checklist.
+- **Technical mechanism explanation**: core model, old-vs-new comparison, lifecycle, change impact, stable mental model, and optional deep-dive details.
 
 If the type is mixed, choose the dominant reader goal and keep secondary content in later sections.
 
@@ -265,6 +267,56 @@ For coaching or performance-related reports, keep the tone fair:
 - Do not exaggerate from one record into a broad character judgment.
 - Separate "this record shows" from "I infer".
 - Give at least one concrete improvement path.
+
+### 5.2 Strengthen Retrospective, Sharing, and Mechanism Explanation Docs
+
+Use this section when the document explains a technical mechanism, migration, lifecycle, architecture change, old-vs-new comparison, or lessons learned.
+
+Do not turn the main body into a complete encyclopedia. A good sharing document should first give readers a reusable mental model:
+
+- **一句话模型**: the simplest accurate way to understand the mechanism.
+- **为什么要看**: why this matters to the reader, team, project, or future work.
+- **核心变化/核心经验**: what changed, what was learned, or what should be remembered.
+- **主链路**: 3-8 lines that show the important flow, not every implementation detail.
+- **边界和例外**: what is not fully implemented, not verified, or easy to misunderstand.
+- **下一步入口**: where to read code, what to verify, or what follow-up doc/runbook is needed.
+
+For old-vs-new or migration documents, prefer this structure:
+
+```md
+## 先看结论
+- 旧版核心：
+- 新版核心：
+- 我的判断：
+- 【待验证/待确认】：
+
+## 一句话模型
+
+## 旧版和新版最大的区别
+
+## 新版主链路
+
+## 为什么这个变化重要
+
+## 边界和后续要补的内容
+
+## 附录
+```
+
+If the draft is already long and mostly correct, do not rewrite it into another long document. Instead:
+
+- Keep the main body lighter.
+- Move exhaustive node/relationship/API/code lists into appendices.
+- Add a "最值得记住的 3 句话" section near the top or near the end.
+- Add clear reading paths for "只想理解", "要接手开发", and "要查细节".
+- Replace broad technical labels with concrete explanation when a non-owner reader may not understand them.
+
+For retrospective or experience-sharing documents, add the author's learning:
+
+- **我之前容易怎么误解**
+- **现在我怎么理解**
+- **以后遇到类似问题怎么判断**
+- **这次经验对后续工作的影响**
 
 ### 6. Preserve Author Learning
 
