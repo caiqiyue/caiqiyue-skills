@@ -118,18 +118,18 @@ Put the most useful content first. Prefer this shape unless the user provides a 
 ```md
 # Clear Specific Title
 
+## 阅读路径
+- 只看结论：看「[先看结论](#先看结论)」
+- 评审方案：看「[关键链路](#关键链路)」和「[我的分析](#我的分析)」
+- 跟进执行：看「[下一步](#下一步)」
+- 查详细清单：看「[附录](#附录)」
+
 ## 先看结论
 - 当前状态：
 - 【待你确认】：
 - 我的判断：
 - 建议动作：
 - 主要风险：
-
-## 阅读路径
-- 只看结论：看「[先看结论](#先看结论)」
-- 评审方案：看「[关键链路](#关键链路)」和「[我的分析](#我的分析)」
-- 跟进执行：看「[下一步](#下一步)」
-- 查详细清单：看「[附录](#附录)」
 
 ## 背景
 
@@ -155,7 +155,7 @@ Put the most useful content first. Prefer this shape unless the user provides a 
 
 Omit or rename sections when they do not fit. Do not keep empty sections except `我的理解与补充`, which may contain clear placeholders for the author to fill in.
 
-For long documents, add a short table of contents or reading path near the top. Use Markdown heading links for jump navigation when the target sections exist. Avoid a large nested outline that makes the document feel heavier.
+For all non-trivial documents, put a short `阅读路径` immediately after the title and before `先看结论`. Use Markdown heading links for jump navigation when the target sections exist. Avoid a large nested outline that makes the document feel heavier.
 
 ### 3.1 Keep the Main Body Light
 
