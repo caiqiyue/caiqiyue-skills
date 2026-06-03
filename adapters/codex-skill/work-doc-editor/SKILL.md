@@ -46,7 +46,7 @@ For a teammate, optimize for:
 - **Details**: where the important implementation, requirement, or process information lives.
 - **Open questions**: what should not be assumed yet.
 
-If the draft does not make the reader's expected action clear, add a short `需要你关注/确认` section near the top.
+If the draft does not make the reader's expected action clear, add explicit action markers near the top instead of a vague "please pay attention" section.
 
 ## Editing Workflow
 
@@ -83,6 +83,7 @@ A strong work document should not make every sentence sound equally certain. Whe
 - **我的判断**: reasoned conclusion based on available information.
 - **待确认**: missing fact, dependency, stakeholder decision, or unverified assumption.
 - **建议**: action the author recommends.
+- **需你补充**: a place where the human author needs to add real thinking, firsthand context, examples, or judgment.
 
 Do not over-label every bullet. Use these labels where confusion or overconfidence would create risk.
 
@@ -90,6 +91,20 @@ If a conclusion is based only on the AI draft, avoid presenting it as verified. 
 
 ```md
 基于当前材料，我暂时判断为 xxx；但还需要确认 xxx，避免后续理解偏差。
+```
+
+For places that require the user's own confirmation, edits, or personal thinking, mark them directly. Prefer clear inline markers over vague section names:
+
+```md
+- 【待你确认】这里是否要按“接手开发”作为后续目标？
+- 【需你补充】这里需要补一条你自己的判断或真实案例。
+- 【待验证】本地流程尚未跑通，不能直接判断生产可用性。
+```
+
+If the output platform supports HTML in Markdown, underline critical human-action markers:
+
+```md
+- <u>【待你确认】是否接受先跑通 demo，再评估生产可用性？</u>
 ```
 
 ### 3. Restructure for Skimming
@@ -101,7 +116,7 @@ Put the most useful content first. Prefer this shape unless the user provides a 
 
 ## 先看结论
 - 当前状态：
-- 需要你关注/确认：
+- 【待你确认】：
 - 我的判断：
 - 建议动作：
 - 主要风险：
