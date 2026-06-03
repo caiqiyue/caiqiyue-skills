@@ -135,31 +135,33 @@ Put the most useful content first. Prefer this shape unless the user provides a 
 - 建议动作：
 - 主要风险：
 
+## 正文
+
 ## 背景
 
-## 关键链路
+### 关键链路
 - 用 3-6 行说明主流程或核心逻辑。
 - 不在正文铺满 API、文件、依赖或配置清单。
 
-## 我的分析
+### 我的分析
 - 为什么我这么判断：
 - 我排除了哪些方案：
 - 当前风险：
 - 不确定点：
 
-## 我的理解与补充
+### 我的理解与补充
 - 我目前真正理解的是：
 - 我还没完全想清楚的是：
 - 后续我想继续补充的是：
 
-## 下一步
+### 下一步
 
 ## 附录
 ```
 
 Omit or rename sections when they do not fit. Do not keep empty sections except `我的理解与补充`, which may contain clear placeholders for the author to fill in.
 
-For all non-trivial documents, put `核心概要` immediately after the title, then `阅读路径`, then `先看结论`. Use Markdown heading links for jump navigation when the target sections exist. Avoid a large nested outline that makes the document feel heavier.
+For all non-trivial documents, put `核心概要` immediately after the title, then `阅读路径`, then `先看结论`, then `正文`. Put the main original content under `正文` using `###` subheadings where practical. Keep `附录` as a top-level `##` section. Use Markdown heading links for jump navigation when the target sections exist. Avoid a large nested outline that makes the document feel heavier.
 
 ### 3.0 Add a Core Overview
 
@@ -183,6 +185,20 @@ Rules:
 - Do not use vague phrases like "本文主要围绕", "通过系统性分析", or "形成闭环".
 - If a term is necessary, explain it in plain language inside the paragraph.
 - The reader should be able to understand the most important message without reading the rest.
+
+### 3.0b Keep Navigation and Main Content Visually Separate
+
+Use top-level `##` headings for the reading/decision layer:
+
+- `核心概要`
+- `阅读路径`
+- `先看结论`
+- `正文`
+- `附录`
+
+Put the detailed body under `## 正文`. Convert previous body `##` sections to `###` when needed. This keeps the top of the document easy to scan and prevents every content section from competing with the overview and conclusion.
+
+Do not over-nest. If a document is very short, `## 正文` can be omitted.
 
 ### 3.0a Mark Human Revision Points
 
