@@ -118,7 +118,7 @@ Put the most useful content first. Prefer this shape unless the user provides a 
 ```md
 # Clear Specific Title
 
-## 给别人听的概要
+## 核心概要
 
 用一段自然口语说明：这篇文档讲什么、为什么重要、核心判断是什么、最关键的发现/变化是什么、下一步应该怎么做。
 
@@ -159,11 +159,11 @@ Put the most useful content first. Prefer this shape unless the user provides a 
 
 Omit or rename sections when they do not fit. Do not keep empty sections except `我的理解与补充`, which may contain clear placeholders for the author to fill in.
 
-For all non-trivial documents, put `给别人听的概要` immediately after the title, then `阅读路径`, then `先看结论`. Use Markdown heading links for jump navigation when the target sections exist. Avoid a large nested outline that makes the document feel heavier.
+For all non-trivial documents, put `核心概要` immediately after the title, then `阅读路径`, then `先看结论`. Use Markdown heading links for jump navigation when the target sections exist. Avoid a large nested outline that makes the document feel heavier.
 
-### 3.0 Add a Spoken Overview
+### 3.0 Add a Core Overview
 
-For non-trivial documents, add a short section named `给别人听的概要` immediately after the title.
+For non-trivial documents, add a short section named `核心概要` immediately after the title.
 
 This section is not a generic summary. It should feel like something the author can read aloud in a meeting or send to a leader who may not read the rest.
 
@@ -183,6 +183,27 @@ Rules:
 - Do not use vague phrases like "本文主要围绕", "通过系统性分析", or "形成闭环".
 - If a term is necessary, explain it in plain language inside the paragraph.
 - The reader should be able to understand the most important message without reading the rest.
+
+### 3.0a Mark Human Revision Points
+
+The final document should distinguish between content that is already safe as an AI-assisted draft and content that deserves the author's own thinking.
+
+Use clear markers for human action:
+
+```md
+<u>【需你改写】这里建议换成你自己的理解或真实表达。</u>
+<u>【需你补充】这里需要补一个你亲自确认过的案例、数据或判断。</u>
+<u>【待你确认】这里涉及后续口径、优先级或业务决策。</u>
+```
+
+Rules:
+
+- Use markers only where human judgment genuinely matters.
+- Do not mark every section; too many markers create noise.
+- Prefer underlined markers when the platform supports HTML Markdown.
+- Mark personal interpretation, business stance, final recommendation, unresolved assumptions, and places where AI could sound too certain.
+- Do not pretend personal understanding exists. If the author should digest and rewrite something, say so directly.
+- If a section is solid and does not need user edits, leave it unmarked.
 
 ### 3.1 Keep the Main Body Light
 
