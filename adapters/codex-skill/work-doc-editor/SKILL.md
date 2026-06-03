@@ -58,6 +58,7 @@ First classify what job the document is doing. The same Markdown format should b
 - **Decide**: help someone approve, reject, prioritize, or choose. Optimize for options, tradeoffs, recommendation, and decision needed.
 - **Diagnose**: explain what is wrong, why it happened, and how to improve. Optimize for evidence, root cause, severity, and corrective action.
 - **Review/evaluate**: judge whether another report, plan, diagnosis, or output is reasonable. Optimize for criteria, evidence comparison, disagreements, and revision suggestions.
+- **Compare systems/results**: explain why two systems, reports, scores, models, or evaluations disagree. Optimize for scope, numeric summary, discrepancy pattern, scoring-rule difference, root cause, decision impact, and fix path.
 - **Handoff**: help someone continue work. Optimize for current state, ownership, dependencies, open issues, and next steps.
 - **Teach/share**: help the author or team reuse an experience. Optimize for scenario, mistake, lesson, and checklist.
 - **Explain/transfer**: help readers understand a system, mechanism, migration, or design change. Optimize for mental model, what changed, why it matters, key boundaries, and where to look next.
@@ -72,6 +73,7 @@ Common types:
 - **Development plan**: target outcome, task breakdown, dependencies, risks, validation, rollout or handoff notes.
 - **Handoff/work sync**: what changed, what remains, owner/context, next steps, unresolved points.
 - **Diagnosis/report review**: findings, evidence, root cause, whether the original diagnosis is reasonable, what is missing, and what should change.
+- **Scoring discrepancy analysis**: sample scope, score gap, gap patterns, rule mismatch, scenario mismatch, examples, priority fixes, and what not to conclude.
 - **Experience sharing/retrospective**: situation, mistake or insight, what worked, reusable lesson, next-time checklist.
 - **Technical mechanism explanation**: core model, old-vs-new comparison, lifecycle, change impact, stable mental model, and optional deep-dive details.
 
@@ -182,6 +184,7 @@ When adding an appendix, keep it short and clearly optional. If the detail is no
 
 Rewrite into direct workplace language:
 
+- Remove pasted rich-text noise from Markdown, such as `<font style=...>`, repeated color spans, and visual styling tags, unless the user explicitly needs HTML.
 - Replace vague phrases like "体系化建设", "赋能", "闭环", "抓手", "全链路", "深度融合", "持续优化" with concrete statements.
 - Delete generic introductions, repeated summaries, and obvious filler.
 - Avoid over-polished parallel lists that sound generated.
@@ -290,6 +293,81 @@ For coaching or performance-related reports, keep the tone fair:
 - Do not exaggerate from one record into a broad character judgment.
 - Separate "this record shows" from "I infer".
 - Give at least one concrete improvement path.
+
+### 5.1a Strengthen Scoring Discrepancy and System Comparison Reports
+
+Use this section when the document compares two scoring systems, diagnosis systems, model outputs, evaluator reports, human-vs-AI results, or old-vs-new evaluation logic.
+
+The report should not only say "scores differ". It should help readers decide whether the difference is a bug, expected rule mismatch, scenario mismatch, calibration issue, or data/sample issue.
+
+Use this main-body shape:
+
+```md
+## 先看结论
+- 样本范围：
+- 最大偏差结论：
+- 我的判断：
+- 【待你确认】：
+- 建议动作：
+
+## 分数差异概览
+
+## 偏差主要来自哪里
+
+## 典型案例
+
+## 根因判断
+
+## 应该怎么处理
+
+## 不应该得出的结论
+
+## 附录
+```
+
+For each major discrepancy pattern, prefer:
+
+```md
+### 偏差模式：一句话说清
+- 现象：
+- 数据证据：
+- 典型案例：
+- 我的判断：
+- 可能根因：
+- 影响：
+- 建议动作：
+- 【待验证】：
+```
+
+For scoring reports, always separate:
+
+- **评分对象不同**: one system scores task completion, another scores capability.
+- **评分维度不同**: one system has a dimension the other does not.
+- **场景目标不同**: one scenario intentionally skips a behavior that another rubric expects.
+- **权重/汇总方式不同**: a zero or low dimension may drag down the final score.
+- **数据口径不同**: sample size, comparable sessions, missing records, truncated conversations, or person/scenario mix.
+- **真正可能的系统问题**: cases where the system contradicts its own rationale, applies irrelevant dimensions, or ignores scenario metadata.
+
+Do not overstate conclusions from aggregate gaps alone. A useful report says what the gap proves and what it does not prove:
+
+```md
+这说明两个系统的评分口径不一致；暂时不能直接说明哪个系统更准确。
+```
+
+When the report includes people, avoid turning score gaps into personality judgments. Tie interpretations to scenarios and scoring rules:
+
+```md
+不要只写：产品脚本执行强，顾问式销售能力弱。
+改成：在产品专项场景里陪练分较高，但诊断系统因 D2 需求澄清低分拉低总分；这更像评分口径差异，需要结合原始对话再判断个人能力短板。
+```
+
+Recommendations should be decision-oriented:
+
+- Align whether the score is measuring "scenario task completion" or "general sales capability".
+- Add scenario-aware scoring exemptions or weight adjustments.
+- Split product专项、快速促成、异议专项、全流程对练 into separate calibration buckets.
+- Review high-gap cases manually before changing model/rubric logic.
+- Define which system is the reference for which business decision.
 
 ### 5.2 Strengthen Retrospective, Sharing, and Mechanism Explanation Docs
 
