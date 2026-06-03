@@ -123,10 +123,12 @@ Put the most useful content first. Prefer this shape unless the user provides a 
 用一段自然口语说明：这篇文档讲什么、为什么重要、核心判断是什么、最关键的发现/变化是什么、下一步应该怎么做。
 
 ## 阅读路径
-- 只看结论：看「[先看结论](#先看结论)」
-- 评审方案：看「[关键链路](#关键链路)」和「[我的分析](#我的分析)」
-- 跟进执行：看「[下一步](#下一步)」
-- 查详细清单：看「[附录](#附录)」
+- 想快速知道这篇讲什么：看「[核心概要](#核心概要)」。
+- 想抓住关键判断：看「[先看结论](#先看结论)」。
+- 想理解核心机制：看「[关键链路](#关键链路)」。
+- 想确认风险和取舍：看「[我的分析](#我的分析)」。
+- 想知道后续怎么做：看「[下一步](#下一步)」。
+- 想查原始细节：看「[附录](#附录)」。
 
 ## 先看结论
 - 当前状态：
@@ -199,6 +201,32 @@ Use top-level `##` headings for the reading/decision layer:
 Put the detailed body under `## 正文`. Convert previous body `##` sections to `###` when needed. This keeps the top of the document easy to scan and prevents every content section from competing with the overview and conclusion.
 
 Do not over-nest. If a document is very short, `## 正文` can be omitted.
+
+### 3.0c Make Reading Paths Problem-Oriented
+
+`阅读路径` is not a table of contents. It should be a short problem-oriented index.
+
+Each bullet should include:
+
+- A brief reader question or intent in plain language.
+- A link to the most useful section that answers it.
+
+Prefer this shape:
+
+```md
+- 想知道系统为什么不容易写乱：看「[资源新增或更新的主链路](#资源新增或更新的主链路)」。
+- 想判断当前风险在哪：看「[资源删除的边界](#资源删除的边界)」。
+- 想快速记住核心机制：看「[最值得记住的 3 句话](#最值得记住的-3-句话)」。
+```
+
+Rules:
+
+- Do not link only to `正文`; `正文` is a container, not the main destination.
+- Link to the most useful `###` sections inside `正文`, plus `核心概要`, `先看结论`, or `附录` when useful.
+- Use 4-6 bullets by default.
+- Each bullet should solve a real reader need: quick understanding, decision, handoff, evidence check, risk check, next action, or detail lookup.
+- Do not merely repeat section titles. Add 10-20 Chinese characters that explain what the reader will get.
+- Adjust bullets to the document type instead of using a fixed template.
 
 ### 3.0a Mark Human Revision Points
 
