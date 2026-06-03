@@ -191,16 +191,21 @@ The final document should distinguish between content that is already safe as an
 Use clear markers for human action:
 
 ```md
-<u>【需你改写】这里建议换成你自己的理解或真实表达。</u>
-<u>【需你补充】这里需要补一个你亲自确认过的案例、数据或判断。</u>
-<u>【待你确认】这里涉及后续口径、优先级或业务决策。</u>
+<u><span style="color:#B45309">【需你改写】这里建议换成你自己的理解或真实表达。</span></u>
+<u><span style="color:#2563EB">【需你补充】这里需要补一个你亲自确认过的案例、数据或判断。</span></u>
+<u><span style="color:#DC2626">【待你确认】这里涉及后续口径、优先级或业务决策。</span></u>
 ```
 
 Rules:
 
 - Use markers only where human judgment genuinely matters.
 - Do not mark every section; too many markers create noise.
-- Prefer underlined markers when the platform supports HTML Markdown.
+- Prefer colored and underlined markers when the platform supports HTML Markdown.
+- Use color consistently:
+  - `#B45309` for `【需你改写】`: author wording or personal understanding should be rewritten.
+  - `#2563EB` for `【需你补充】`: missing firsthand example, data, or judgment should be added.
+  - `#DC2626` for `【待你确认】`: decision, priority, or factual assumption needs confirmation.
+- If the target platform strips HTML, fall back to plain underlined text or the marker label itself.
 - Mark personal interpretation, business stance, final recommendation, unresolved assumptions, and places where AI could sound too certain.
 - Do not pretend personal understanding exists. If the author should digest and rewrite something, say so directly.
 - If a section is solid and does not need user edits, leave it unmarked.
