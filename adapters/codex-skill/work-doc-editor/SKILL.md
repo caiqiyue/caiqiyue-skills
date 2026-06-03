@@ -118,6 +118,10 @@ Put the most useful content first. Prefer this shape unless the user provides a 
 ```md
 # Clear Specific Title
 
+## 给别人听的概要
+
+用一段自然口语说明：这篇文档讲什么、为什么重要、核心判断是什么、最关键的发现/变化是什么、下一步应该怎么做。
+
 ## 阅读路径
 - 只看结论：看「[先看结论](#先看结论)」
 - 评审方案：看「[关键链路](#关键链路)」和「[我的分析](#我的分析)」
@@ -155,7 +159,30 @@ Put the most useful content first. Prefer this shape unless the user provides a 
 
 Omit or rename sections when they do not fit. Do not keep empty sections except `我的理解与补充`, which may contain clear placeholders for the author to fill in.
 
-For all non-trivial documents, put a short `阅读路径` immediately after the title and before `先看结论`. Use Markdown heading links for jump navigation when the target sections exist. Avoid a large nested outline that makes the document feel heavier.
+For all non-trivial documents, put `给别人听的概要` immediately after the title, then `阅读路径`, then `先看结论`. Use Markdown heading links for jump navigation when the target sections exist. Avoid a large nested outline that makes the document feel heavier.
+
+### 3.0 Add a Spoken Overview
+
+For non-trivial documents, add a short section named `给别人听的概要` immediately after the title.
+
+This section is not a generic summary. It should feel like something the author can read aloud in a meeting or send to a leader who may not read the rest.
+
+It should include:
+
+- What this document is about.
+- Why the topic matters.
+- The author's core judgment.
+- The 1-3 most important findings, changes, or problems.
+- What should happen next.
+
+Rules:
+
+- Keep it to one short paragraph by default.
+- Use natural spoken workplace language.
+- Do not include exhaustive details, tables, raw metrics, or long caveats.
+- Do not use vague phrases like "本文主要围绕", "通过系统性分析", or "形成闭环".
+- If a term is necessary, explain it in plain language inside the paragraph.
+- The reader should be able to understand the most important message without reading the rest.
 
 ### 3.1 Keep the Main Body Light
 
