@@ -1,9 +1,9 @@
 ---
-name: work-doc-editor
+name: word-doc-editor
 description: Use when preparing, revising, or finalizing Markdown workplace documents such as leadership updates, technical summaries, feature design proposals, development plans, project reports, handoff notes, work syncs, retrospectives, diagnosis reports, evaluation reports, review reports, coaching analysis, or experience-sharing docs. Especially use after AI has drafted content and the final output should be concise, readable, human-sounding, easy for leaders or teammates to skim, and visibly grounded in the author's judgment, evidence, root-cause thinking, tradeoffs, risks, and next actions. Beyond formatting and structure, this skill also reviews the prose itself: it judges, passage by passage, whether the writing reads like AI or like a person, rewrites AI-sounding text into plain human language, and leaves genuinely human-written passages untouched.
 ---
 
-# Work Doc Editor
+# Word Doc Editor
 
 Rewrite AI-generated or rough Markdown into a final workplace document that reads like a real employee prepared it for leaders, teammates, or future handoff.
 

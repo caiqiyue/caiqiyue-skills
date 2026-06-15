@@ -36,7 +36,7 @@
 - [core/harness-spec](core/harness-spec)
 - [core/templates/project-ai-framework](core/templates/project-ai-framework)
 - [adapters/codex-skill/personal-harness](adapters/codex-skill/personal-harness)
-- [adapters/codex-skill/work-doc-editor](adapters/codex-skill/work-doc-editor)
+- [adapters/codex-skill/word-doc-editor](adapters/codex-skill/word-doc-editor)
 - [adapters/claude-plugin/personal-harness-plugin](adapters/claude-plugin/personal-harness-plugin)
 - [adapters/opencode](adapters/opencode)
 

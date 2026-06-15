@@ -1,7 +1,0 @@
-interface:
-  display_name: "Work Doc Editor"
-  short_description: "Turn AI drafts into readable work docs"
-  default_prompt: "Use $work-doc-editor to rewrite this Markdown draft into a concise, human-sounding workplace document."
-
-policy:
-  allow_implicit_invocation: true
