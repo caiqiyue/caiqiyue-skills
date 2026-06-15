@@ -1,6 +1,6 @@
 ---
 name: work-doc-editor
-description: Use when preparing, revising, or finalizing Markdown workplace documents such as leadership updates, technical summaries, feature design proposals, development plans, project reports, handoff notes, work syncs, retrospectives, diagnosis reports, evaluation reports, review reports, coaching analysis, or experience-sharing docs. Especially use after AI has drafted content and the final output should be concise, readable, human-sounding, easy for leaders or teammates to skim, and visibly grounded in the author's judgment, evidence, root-cause thinking, tradeoffs, risks, and next actions.
+description: Use when preparing, revising, or finalizing Markdown workplace documents such as leadership updates, technical summaries, feature design proposals, development plans, project reports, handoff notes, work syncs, retrospectives, diagnosis reports, evaluation reports, review reports, coaching analysis, or experience-sharing docs. Especially use after AI has drafted content and the final output should be concise, readable, human-sounding, easy for leaders or teammates to skim, and visibly grounded in the author's judgment, evidence, root-cause thinking, tradeoffs, risks, and next actions. Beyond formatting and structure, this skill also reviews the prose itself: it judges, passage by passage, whether the writing reads like AI or like a person, rewrites AI-sounding text into plain human language, and leaves genuinely human-written passages untouched.
 ---
 
 # Work Doc Editor
@@ -279,7 +279,21 @@ When adding an appendix, keep it short and clearly optional. If the detail is no
 
 ### 4. Remove AI Flavor
 
-Rewrite into direct workplace language:
+This step is not only formatting cleanup. After the structure is in place, **review the prose itself, passage by passage, and decide whether each passage reads like AI or like a person.** This is the core "human-voice" pass:
+
+- **Reads like AI** (hits several signals in [references/human-voice-checklist.md](references/human-voice-checklist.md)) → rewrite it into plain human language using the rewrite principles below.
+- **Reads like a person** → leave it alone. Even if it is uneven, colloquial, or slightly redundant, first assume that is the author's own voice, not a defect. Do not "polish" it into something smoother.
+
+When unsure, default to "human" and do not touch it. The quality of an edit is not measured by how much you changed, but by whether the person is still there afterward.
+
+Two cases the gate handles differently:
+
+- **The input contains the author's own words** (a rough retrospective, spoken fragments, a personal complaint): preserve their fingerprint. Do not turn their plain sentences into polished "golden lines."
+- **The input is a pure AI draft** (nothing the author actually wrote): "preserve fingerprint" does not apply, but do not introduce *new* AI flavor while rewriting. Make it sound like an accountable person wrote it.
+
+Use [references/human-voice-checklist.md](references/human-voice-checklist.md) for the concrete AI-writing signals, the rewrite principles ("只做减法、不写金句、拿不准就白描、别编造锚点"), and the signs of genuine human writing. Run it as a final pass over the passages you touched, not over the whole document.
+
+Beyond the gate, rewrite into direct workplace language:
 
 - Remove pasted rich-text noise from Markdown, such as `<font style=...>`, repeated color spans, and visual styling tags, unless the user explicitly needs HTML.
 - Replace vague phrases like "体系化建设", "赋能", "闭环", "抓手", "全链路", "深度融合", "持续优化" with concrete statements.
@@ -565,6 +579,8 @@ Before answering, check:
 - Are risks and uncertain points visible?
 - Is there a place for the author to add their own thinking?
 - Did the rewrite remove AI-style filler without removing important meaning?
+- Did I run the passages I touched against [references/human-voice-checklist.md](references/human-voice-checklist.md), so AI-sounding prose was rewritten and genuinely human-written passages were left alone?
+- Did I avoid introducing new AI flavor (golden lines, inflated meaning, fabricated anchors) while rewriting?
 - Would a skeptical leader think the author has personally understood the topic, or only pasted a polished AI answer?
 - Is the main body short enough to read without opening every detail section?
 
