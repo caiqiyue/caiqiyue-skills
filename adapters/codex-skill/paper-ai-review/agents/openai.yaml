@@ -1,0 +1,7 @@
+interface:
+  display_name: "Paper AI Review"
+  short_description: "Review a paper draft for AI-writing tells across text, figures, and tables"
+  default_prompt: "Use $paper-ai-review to review this paper draft (text, figures, tables) for AI-generated tells, as a strict journal reviewer would."
+
+policy:
+  allow_implicit_invocation: true
