@@ -17,7 +17,8 @@ From this skill directory:
 python3 scripts/init_project_ai_dev.py --project /path/to/project \
   --wiki-root /Users/apple/Desktop/caiqiyue-wiki \
   --apifox-project-id 8445839 \
-  --default-mode quick-check
+  --default-mode quick-check \
+  --depth standard
 ```
 
 Modes:
@@ -25,6 +26,12 @@ Modes:
 - `feature-delivery`: AI-led full feature delivery.
 - `assisted-development`: human-led development with AI review, tests, and reports.
 - `quick-check`: small change with minimum scope, runtime, contract, test, and delivery evidence.
+
+Depth:
+
+- `minimal`: generate the framework skeleton.
+- `standard`: generate the skeleton and fill project profile, tool bindings, code map, test commands, and knowledge-source pointers.
+- `deep`: standard plus broader runtime/contract candidate scanning. This still produces candidates, not truth.
 
 ## What It Generates
 
@@ -38,6 +45,7 @@ Modes:
 - `.ai-dev/harness/gates/` for requirement, runtime, contract, review, test, delivery, and state gates.
 - `.ai-dev/mcp/` with Codex and Claude examples, without secrets.
 - `.ai-dev/templates/` and `.ai-dev/runs/`.
+- `.ai-dev/runs/init-YYYY-MM-DD/initialization-report.md` with detected facts, gaps, token presence booleans, and next steps.
 
 ## Rules
 
@@ -45,3 +53,4 @@ Modes:
 - If target `AGENTS.md` or `CLAUDE.md` already exists, append the new entry unless `--force` is used.
 - Prefer `quick-check` for small manual changes and `feature-delivery` for larger requirements.
 - After initialization, ask the user to review `.ai-dev/context/knowledge-sources.md` and `.ai-dev/context/tool-bindings.md`.
+- Treat auto-detected runtime/contracts as candidates. Confirm against real code before relying on them during feature work.
