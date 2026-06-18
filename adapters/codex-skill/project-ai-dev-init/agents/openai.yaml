@@ -1,5 +1,5 @@
 version: 1
 interface:
   display_name: Project AI Dev Init
-  short_description: Bootstrap a real project with .ai-dev, Codex/Claude entries, wiki context, gates, review adapters, and evidence templates.
-  default_prompt: Initialize this repository with the project AI development framework, using .ai-dev, AGENTS.md, CLAUDE.md, project constitution, runtime/contracts context, review adapters, and full/assisted/quick workflows.
+  short_description: Bootstrap a real project with .ai-dev, Codex/Claude entries, wiki context, candidate maps, gates, review adapters, and evidence templates.
+  default_prompt: Initialize this repository with the project AI development framework, using .ai-dev, AGENTS.md, CLAUDE.md, project constitution, candidate runtime/static/contract maps, review adapters, and full/assisted/quick workflows.

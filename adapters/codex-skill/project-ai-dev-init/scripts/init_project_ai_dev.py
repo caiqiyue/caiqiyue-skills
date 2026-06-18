@@ -70,7 +70,9 @@ Hard rules:
 
 This directory is the project-local adapter for external wiki knowledge, harness workflows, skills, and MCP tools.
 
-It stores constitution rules, context pointers, runtime and contract notes, workflows, gates, run artifacts, templates, adapters, and MCP usage notes.
+It stores constitution rules, context pointers, candidate runtime/static/contract maps, workflows, gates, run artifacts, templates, adapters, and MCP usage notes.
+
+Initialization prepares containers and candidate maps only. Requirement-specific dynamic runtime flow and static code/contract links are analyzed inside `.ai-dev/runs/<task-id>/`.
 
 It does not store secrets.
 """,
@@ -113,6 +115,12 @@ This is the shared entrypoint for Codex, Claude Code, and other coding agents.
 7. Read the selected workflow and required gates.
 8. For feature work, create or update a task run under `.ai-dev/runs/<task-id>/`.
 
+## Runtime / Static Analysis Boundary
+
+- During project startup, treat `.ai-dev/context/runtime/`, `.ai-dev/context/static/`, and `.ai-dev/context/contracts/` as reusable maps and candidates.
+- During a concrete feature or fix, analyze the requirement-specific dynamic flow in `runtime-flow.md`, static code links in `static-links.md`, and contract impact in `contract-checklist.md`.
+- For an empty or greenfield project, mark existing-flow sections as `N/A` and design the target flow instead.
+
 ## Evidence Order
 
 1. Real code and tests in this repository.
@@ -142,6 +150,7 @@ If sources conflict, trust real code for implementation facts and record the kno
 - Global wiki root: `{{GLOBAL_WIKI_ROOT}}`
 - Standards:
 - Runtime flows:
+- Static architecture / dependency maps:
 - Contracts:
 - Team methods:
 
@@ -190,7 +199,7 @@ These rules are the project-local contract for AI-assisted development.
 """,
     ".ai-dev/context/code-map.md": """# Code Map
 
-This is a navigation map, not final evidence.
+This is an initialization-time navigation map, not final evidence.
 
 ## Detected Roots
 
@@ -207,6 +216,7 @@ This is a navigation map, not final evidence.
 ## Notes
 
 - Verify all implementation claims against real files before using them as evidence.
+- Re-check relevant paths during each concrete requirement run before coding.
 """,
     ".ai-dev/context/tool-bindings.md": """# Tool Bindings
 
@@ -236,13 +246,16 @@ This is a navigation map, not final evidence.
 - Commit convention:
 - Merge request convention:
 """,
-    ".ai-dev/context/runtime/entrypoints.md": "# Runtime Entrypoints\n\n## Detected Candidates\n\n{{RUNTIME_ENTRYPOINTS}}\n\n## To Confirm\n\n- HTTP routes:\n- Frontend actions:\n- CLI commands:\n- Scheduled jobs:\n- Message events:\n- Webhooks:\n- Background workers:\n",
-    ".ai-dev/context/runtime/request-flows.md": "# Request Flows\n\n```text\nFlow name:\nTrigger:\nRoute / entrypoint:\nModules:\nData read:\nData written:\nExternal calls:\nAsync continuation:\nFailure handling:\nObservability:\n```\n",
+    ".ai-dev/context/runtime/entrypoints.md": "# Runtime Entrypoints\n\nProject-level dynamic runtime candidates. Initialization may list candidates, but concrete flow analysis happens per requirement under `.ai-dev/runs/<task-id>/runtime-flow.md`.\n\n## Detected Candidates\n\n{{RUNTIME_ENTRYPOINTS}}\n\n## To Confirm\n\n- HTTP routes:\n- Frontend actions:\n- CLI commands:\n- Scheduled jobs:\n- Message events:\n- Webhooks:\n- Background workers:\n",
+    ".ai-dev/context/runtime/request-flows.md": "# Request Flows\n\nReusable project-level flow notes. Fill only after confirming against real code or after a completed feature run.\n\n```text\nFlow name:\nTrigger:\nRoute / entrypoint:\nModules:\nData read:\nData written:\nExternal calls:\nAsync continuation:\nFailure handling:\nObservability:\n```\n",
     ".ai-dev/context/runtime/scheduled-jobs.md": "# Scheduled Jobs\n\n- Job:\n- Trigger:\n- Config:\n- Data touched:\n- Failure handling:\n- Logs / monitoring:\n",
     ".ai-dev/context/runtime/async-events.md": "# Async Events\n\n- Event / topic:\n- Producer:\n- Consumer:\n- Payload contract:\n- Retry / dead-letter behavior:\n- Idempotency:\n",
     ".ai-dev/context/runtime/config-switches.md": "# Config Switches\n\n- Config:\n- Default:\n- Environments:\n- Runtime effect:\n- Related tests:\n",
     ".ai-dev/context/runtime/observability.md": "# Observability\n\n- Logs:\n- Trace IDs:\n- Metrics:\n- Alerts:\n- Dashboards:\n- Test output locations:\n",
-    ".ai-dev/context/contracts/api-contracts.md": "# API Contracts\n\n## Sources\n\n- Apifox project id: `{{APIFOX_PROJECT_ID}}`\n- Local OpenAPI candidates:\n{{OPENAPI_CANDIDATES}}\n\n## To Fill\n\n- Endpoint:\n- Request fields:\n- Response fields:\n- Status codes:\n- Error codes:\n- Compatibility notes:\n- Apifox source:\n",
+    ".ai-dev/context/static/module-map.md": "# Static Module Map\n\nProject-level static structure candidates. Confirm relevant modules per requirement before coding.\n\n## Modules\n\n- Module:\n- Responsibility:\n- Owners / conventions:\n- Main files:\n- Related tests:\n",
+    ".ai-dev/context/static/dependencies.md": "# Static Dependencies\n\nRecord important compile-time or import-time dependencies after confirming from real code.\n\n- Source module:\n- Depends on:\n- Direction allowed:\n- Boundary rule:\n- Risk:\n",
+    ".ai-dev/context/static/call-sites.md": "# Static Call Sites\n\nRecord important call-site relationships that matter for feature changes.\n\n- Caller:\n- Callee:\n- Contract assumed:\n- Tests covering it:\n",
+    ".ai-dev/context/contracts/api-contracts.md": "# API Contracts\n\nProject-level contract candidates. Requirement-specific contract impact belongs in `.ai-dev/runs/<task-id>/contract-checklist.md`.\n\n## Sources\n\n- Apifox project id: `{{APIFOX_PROJECT_ID}}`\n- Local OpenAPI candidates:\n{{OPENAPI_CANDIDATES}}\n\n## To Fill\n\n- Endpoint:\n- Request fields:\n- Response fields:\n- Status codes:\n- Error codes:\n- Compatibility notes:\n- Apifox source:\n",
     ".ai-dev/context/contracts/data-contracts.md": "# Data Contracts\n\n## Detected Model / Migration Candidates\n\n{{DATA_CONTRACT_CANDIDATES}}\n\n## To Fill\n\n- Table / model:\n- Field:\n- Meaning:\n- Allowed values:\n- State transitions:\n- Uniqueness / idempotency:\n- Migration notes:\n",
     ".ai-dev/context/contracts/business-rules.md": "# Business Rules\n\n- Rule:\n- Source:\n- Applies when:\n- Forbidden behavior:\n- Tests:\n",
     ".ai-dev/context/contracts/error-contracts.md": "# Error Contracts\n\n## Detected Error / Exception Candidates\n\n{{ERROR_CONTRACT_CANDIDATES}}\n\n## To Fill\n\n- Error:\n- Retryable:\n- User-facing message:\n- Rollback / compensation:\n- Logging / alerting:\n",
@@ -254,8 +267,8 @@ Use for full AI-led feature delivery.
 
 1. Read requirement source.
 2. Read project context and external knowledge sources.
-3. Inspect real code and relevant tests.
-4. Map runtime flow and contracts.
+3. Inspect real code, relevant tests, and candidate maps.
+4. For this requirement, map dynamic runtime flow, static code links, and contracts. In an empty project, mark existing-flow sections as `N/A` and design the target flow.
 5. Create a run directory from `_task-template` and maintain `context-capsule.md`.
 6. Produce requirement summary, design, and an atomic development plan.
 7. Ask for user confirmation when behavior, runtime flow, API, data, or risk is uncertain.
@@ -272,7 +285,7 @@ Use when the human writes or drives the code and the agent assists.
 
 1. Read the user's current change or intended change.
 2. Inspect diff or affected files.
-3. Identify runtime and contract impact.
+3. Identify requirement-specific runtime, static-link, and contract impact.
 4. Maintain a lightweight run record and `context-capsule.md`.
 5. Review scope, contracts, island code, test gaps, and open-code-review findings when configured.
 6. Write or propose missing test scripts.
@@ -287,17 +300,19 @@ Minimum record:
 
 1. One-sentence requirement.
 2. Changed files or intended files.
-3. API/data/permission/contract impact.
-4. Runtime flow impact.
-5. Context capsule with current facts and decisions.
-6. Test script or command.
-7. Actual result.
-8. Delivery note.
+3. Runtime flow impact.
+4. Static code-link impact.
+5. API/data/permission/contract impact.
+6. Context capsule with current facts and decisions.
+7. Test script or command.
+8. Actual result.
+9. Delivery note.
 """,
     ".ai-dev/harness/gates/requirement-gate.md": "# Requirement Gate\n\nPass when requirement source, behavior, scope, non-goals, open questions, and selected mode are recorded.\n",
-    ".ai-dev/harness/gates/runtime-flow-gate.md": "# Runtime Flow Gate\n\nPass when entrypoint, modules, data, async/scheduled behavior, config, failure handling, and observability are recorded or blockers are listed.\n",
-    ".ai-dev/harness/gates/contract-gate.md": "# Contract Gate\n\nPass when API, data, business, error, permission, and compatibility contracts are checked. Do not silently change contracts.\n",
-    ".ai-dev/harness/gates/design-gate.md": "# Design Gate\n\nPass when requirement summary, runtime flow, contract checklist, affected code paths, risks, rollback, and verification focus exist.\n",
+    ".ai-dev/harness/gates/runtime-flow-gate.md": "# Runtime Flow Gate\n\nPass when the requirement-specific dynamic path is recorded: entrypoint, modules, data, async/scheduled behavior, config, failure handling, and observability. For empty projects, pass only when existing flow is marked `N/A` and target flow is described.\n",
+    ".ai-dev/harness/gates/static-link-gate.md": "# Static Link Gate\n\nPass when requirement-specific static code links are recorded: affected modules, callers/callees, dependency direction, shared types/models, configuration, and related tests. Use real code paths, not only candidate maps.\n",
+    ".ai-dev/harness/gates/contract-gate.md": "# Contract Gate\n\nPass when requirement-specific API, data, business, error, permission, and compatibility contracts are checked. Do not silently change contracts.\n",
+    ".ai-dev/harness/gates/design-gate.md": "# Design Gate\n\nPass when requirement summary, runtime flow, static links, contract checklist, affected code paths, risks, rollback, and verification focus exist.\n",
     ".ai-dev/harness/gates/implementation-gate.md": "# Implementation Gate\n\nPass when changes are scoped, style matches project conventions, and new code is connected to runtime flow.\n",
     ".ai-dev/harness/gates/atomic-task-gate.md": "# Atomic Task Gate\n\nPass when each implementation task has an objective, affected files, dependencies, verification, and a deterministic pass/fail result.\n\nGood task size: small enough to review, test, and roll back independently.\n",
     ".ai-dev/harness/gates/context-capsule-gate.md": "# Context Capsule Gate\n\nPass when the active run has `context-capsule.md` with current goal, confirmed facts, decisions, changed files, tests run, open blockers, and next step.\n",
@@ -308,7 +323,8 @@ Minimum record:
     ".ai-dev/harness/gates/doc-sync-gate.md": "# Doc Sync Gate\n\nPass when delivery docs include requirement, design, runtime, contracts, changed files, tests, Apifox, Codeup, and Yuque/DingTalk drafts when needed.\n",
     ".ai-dev/harness/gates/state-gate.md": "# State Gate\n\nPass when active task, progress, handoff, and run artifacts match the selected workflow.\n",
     ".ai-dev/harness/gates/quick-scope-gate.md": "# Quick Scope Gate\n\nPass when a small change records requirement, affected files, non-goals, and why quick-check is sufficient.\n",
-    ".ai-dev/harness/gates/runtime-impact-gate.md": "# Runtime Impact Gate\n\nPass when runtime behavior impact is recorded. If changed, identify the entrypoint and affected flow.\n",
+    ".ai-dev/harness/gates/runtime-impact-gate.md": "# Runtime Impact Gate\n\nPass when runtime behavior impact is recorded for the active requirement. If changed, identify the entrypoint and affected flow.\n",
+    ".ai-dev/harness/gates/static-impact-gate.md": "# Static Impact Gate\n\nPass when static code-link impact is recorded for the active requirement. If changed, identify modules, dependencies, call sites, config, and tests.\n",
     ".ai-dev/harness/gates/contract-impact-gate.md": "# Contract Impact Gate\n\nPass when API, data, business, error, permission, and compatibility impact is recorded. If changed, use full contract gate.\n",
     ".ai-dev/harness/gates/delivery-note-gate.md": "# Delivery Note Gate\n\nPass when the run includes what changed, how it was verified, remaining risks, and suggested commit/MR summary.\n",
     ".ai-dev/harness/state/active-task.json": '{\n  "activeTaskId": "",\n  "mode": "{{DEFAULT_MODE}}",\n  "status": "idle",\n  "runPath": "",\n  "updatedAt": "{{INIT_DATE}}"\n}\n',
@@ -357,6 +373,7 @@ Run before claiming a task is complete.
 - External wiki sources consulted or explicitly marked not needed.
 - Code evidence includes real file paths.
 - Runtime flow impact is recorded.
+- Static code-link impact is recorded.
 - Contract impact is recorded.
 - Development plan is split into atomic tasks when more than one code step is needed.
 - Test scripts or commands are reproducible.
@@ -367,27 +384,29 @@ Run before claiming a task is complete.
 """,
     ".opencodereview/rule.json": '{\n  "rules": [\n    {\n      "path": "**/*",\n      "rule": "Review for scoped changes, runtime integration, contract compatibility, permission safety, error handling, and missing tests. Flag unused island code and unverifiable behavior claims."\n    },\n    {\n      "path": "**/*.{ts,tsx,js,jsx}",\n      "rule": "Check async errors, null or undefined handling, API response shape changes, state updates, and user-visible regressions."\n    },\n    {\n      "path": "**/*.{py}",\n      "rule": "Check input validation, exception handling, data boundary assumptions, and missing pytest or integration coverage."\n    },\n    {\n      "path": "**/*.{java,kt}",\n      "rule": "Check transaction boundaries, permission checks, DTO compatibility, null safety, and service/controller wiring."\n    }\n  ],\n  "exclude": [\n    "**/generated/**",\n    "vendor/**",\n    "node_modules/**",\n    "dist/**",\n    "build/**"\n  ]\n}\n',
     ".ai-dev/templates/requirement-summary.md": "# Requirement Summary\n\n- Source:\n- Goal:\n- In scope:\n- Out of scope:\n- Open questions:\n",
-    ".ai-dev/templates/runtime-flow.md": "# Runtime Flow\n\n- Entrypoint:\n- Modules:\n- Data read:\n- Data written:\n- External calls:\n- Async/scheduled behavior:\n- Config switches:\n- Failure handling:\n- Observability:\n",
+    ".ai-dev/templates/runtime-flow.md": "# Runtime Flow\n\nRequirement-specific dynamic runtime flow. For empty projects, mark existing flow as `N/A` and describe the target flow.\n\n- Entrypoint:\n- Modules:\n- Data read:\n- Data written:\n- External calls:\n- Async/scheduled behavior:\n- Config switches:\n- Failure handling:\n- Observability:\n",
+    ".ai-dev/templates/static-links.md": "# Static Links\n\nRequirement-specific static code links. Use real code paths, imports, call sites, shared types, config, and tests.\n\n- Affected modules:\n- Callers:\n- Callees:\n- Shared types / models:\n- Dependency direction:\n- Config files:\n- Related tests:\n- Static risks:\n",
     ".ai-dev/templates/contract-checklist.md": "# Contract Checklist\n\n- API contracts:\n- Data contracts:\n- Business rules:\n- Error contracts:\n- Permission contracts:\n- Compatibility contracts:\n- Intentional changes:\n- Risks:\n",
-    ".ai-dev/templates/design.md": "# Design\n\n## Requirement\n\n## Runtime Flow\n\n## Contracts\n\n## Implementation Plan\n\n## Risks And Rollback\n\n## Verification Focus\n",
+    ".ai-dev/templates/design.md": "# Design\n\n## Requirement\n\n## Runtime Flow\n\n## Static Links\n\n## Contracts\n\n## Implementation Plan\n\n## Risks And Rollback\n\n## Verification Focus\n",
     ".ai-dev/templates/context-capsule.md": "# Context Capsule\n\n## Current Goal\n\n## Confirmed Facts\n\n## Key Decisions\n\n## Runtime / Contract Constraints\n\n## Changed Files\n\n## Tests Run\n\n## Open Questions / Blockers\n\n## Next Step\n",
     ".ai-dev/templates/development-plan.md": "# Development Plan\n\n## Summary\n\n- Task:\n- Files:\n- Verification:\n- Risks:\n\n## Atomic Tasks\n\n| ID | Objective | Files | Depends On | Verification | Status |\n| --- | --- | --- | --- | --- | --- |\n",
     ".ai-dev/templates/code-review.md": "# Code Review\n\n- Scope fit:\n- Runtime integration:\n- Contract safety:\n- Security/permissions:\n- Error handling:\n- Test coverage:\n- Island-code check:\n\n## Open Code Review\n\n- Tool used:\n- Command:\n- Raw output path:\n- Findings classified:\n\n## Findings\n\n| ID | Source | Severity | File | Finding | Action | Status |\n| --- | --- | --- | --- | --- | --- | --- |\n",
     ".ai-dev/templates/bug-list.md": "# Bug List\n\n| ID | Source | Description | Severity | Fix | Retest |\n| --- | --- | --- | --- | --- | --- |\n",
-    ".ai-dev/templates/test-report.md": "# Test Report\n\n| Test | Purpose | Script/Command | Input | Expected | Actual | Runtime Flow | Contract | Status |\n| --- | --- | --- | --- | --- | --- | --- | --- | --- |\n\n## Failures And Reruns\n\n## Unrun Tests And Risk\n",
-    ".ai-dev/templates/delivery-report.md": "# Delivery Report\n\n## Summary\n\n## Changed Files\n\n## Runtime And Contract Notes\n\n## Test Evidence\n\n## Code Review Evidence\n\n## Apifox Sync\n\n## Codeup Delivery\n\n## Yuque/DingTalk Draft\n\n## Wiki Follow-up\n\n## Residual Risk\n",
+    ".ai-dev/templates/test-report.md": "# Test Report\n\n| Test | Purpose | Script/Command | Input | Expected | Actual | Runtime Flow | Static Link | Contract | Status |\n| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |\n\n## Failures And Reruns\n\n## Unrun Tests And Risk\n",
+    ".ai-dev/templates/delivery-report.md": "# Delivery Report\n\n## Summary\n\n## Changed Files\n\n## Runtime / Static / Contract Notes\n\n## Test Evidence\n\n## Code Review Evidence\n\n## Apifox Sync\n\n## Codeup Delivery\n\n## Yuque/DingTalk Draft\n\n## Wiki Follow-up\n\n## Residual Risk\n",
     ".ai-dev/templates/wiki-follow-up.md": "# Wiki Follow-up\n\n| ID | Source | Problem | Code Truth | Suggested Wiki Update | Owner | Status |\n| --- | --- | --- | --- | --- | --- | --- |\n",
-    ".ai-dev/templates/quick-check.md": "# Quick Check\n\n- Requirement:\n- Changed files:\n- API/data/permission/contract impact:\n- Runtime impact:\n- Context capsule path:\n- Test script or command:\n- Actual result:\n- Delivery note:\n",
+    ".ai-dev/templates/quick-check.md": "# Quick Check\n\n- Requirement:\n- Changed files:\n- Runtime impact:\n- Static code-link impact:\n- API/data/permission/contract impact:\n- Context capsule path:\n- Test script or command:\n- Actual result:\n- Delivery note:\n",
     ".ai-dev/runs/_task-template/context-capsule.md": "# Context Capsule\n\n## Current Goal\n\n## Confirmed Facts\n\n## Key Decisions\n\n## Runtime / Contract Constraints\n\n## Changed Files\n\n## Tests Run\n\n## Open Questions / Blockers\n\n## Next Step\n",
     ".ai-dev/runs/_task-template/requirement-summary.md": "# Requirement Summary\n\n- Source:\n- Goal:\n- In scope:\n- Out of scope:\n- Open questions:\n",
-    ".ai-dev/runs/_task-template/runtime-flow.md": "# Runtime Flow\n\n- Entrypoint:\n- Modules:\n- Data read:\n- Data written:\n- External calls:\n- Async/scheduled behavior:\n- Config switches:\n- Failure handling:\n- Observability:\n",
+    ".ai-dev/runs/_task-template/runtime-flow.md": "# Runtime Flow\n\nRequirement-specific dynamic runtime flow. For empty projects, mark existing flow as `N/A` and describe the target flow.\n\n- Entrypoint:\n- Modules:\n- Data read:\n- Data written:\n- External calls:\n- Async/scheduled behavior:\n- Config switches:\n- Failure handling:\n- Observability:\n",
+    ".ai-dev/runs/_task-template/static-links.md": "# Static Links\n\nRequirement-specific static code links. Use real code paths, imports, call sites, shared types, config, and tests.\n\n- Affected modules:\n- Callers:\n- Callees:\n- Shared types / models:\n- Dependency direction:\n- Config files:\n- Related tests:\n- Static risks:\n",
     ".ai-dev/runs/_task-template/contract-checklist.md": "# Contract Checklist\n\n- API contracts:\n- Data contracts:\n- Business rules:\n- Error contracts:\n- Permission contracts:\n- Compatibility contracts:\n- Intentional changes:\n- Risks:\n",
-    ".ai-dev/runs/_task-template/design.md": "# Design\n\n## Requirement\n\n## Runtime Flow\n\n## Contracts\n\n## Implementation Plan\n\n## Risks And Rollback\n\n## Verification Focus\n",
+    ".ai-dev/runs/_task-template/design.md": "# Design\n\n## Requirement\n\n## Runtime Flow\n\n## Static Links\n\n## Contracts\n\n## Implementation Plan\n\n## Risks And Rollback\n\n## Verification Focus\n",
     ".ai-dev/runs/_task-template/development-plan.md": "# Development Plan\n\n## Summary\n\n- Task:\n- Files:\n- Verification:\n- Risks:\n\n## Atomic Tasks\n\n| ID | Objective | Files | Depends On | Verification | Status |\n| --- | --- | --- | --- | --- | --- |\n",
     ".ai-dev/runs/_task-template/code-review.md": "# Code Review\n\n- Scope fit:\n- Runtime integration:\n- Contract safety:\n- Security/permissions:\n- Error handling:\n- Test coverage:\n- Island-code check:\n\n## Open Code Review\n\n- Tool used:\n- Command:\n- Raw output path:\n- Findings classified:\n\n## Findings\n\n| ID | Source | Severity | File | Finding | Action | Status |\n| --- | --- | --- | --- | --- | --- | --- |\n",
     ".ai-dev/runs/_task-template/bug-list.md": "# Bug List\n\n| ID | Source | Description | Severity | Fix | Retest |\n| --- | --- | --- | --- | --- | --- |\n",
-    ".ai-dev/runs/_task-template/test-report.md": "# Test Report\n\n| Test | Purpose | Script/Command | Input | Expected | Actual | Runtime Flow | Contract | Status |\n| --- | --- | --- | --- | --- | --- | --- | --- | --- |\n\n## Failures And Reruns\n\n## Unrun Tests And Risk\n",
-    ".ai-dev/runs/_task-template/delivery-report.md": "# Delivery Report\n\n## Summary\n\n## Changed Files\n\n## Runtime And Contract Notes\n\n## Test Evidence\n\n## Code Review Evidence\n\n## Apifox Sync\n\n## Codeup Delivery\n\n## Yuque/DingTalk Draft\n\n## Wiki Follow-up\n\n## Residual Risk\n",
+    ".ai-dev/runs/_task-template/test-report.md": "# Test Report\n\n| Test | Purpose | Script/Command | Input | Expected | Actual | Runtime Flow | Static Link | Contract | Status |\n| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |\n\n## Failures And Reruns\n\n## Unrun Tests And Risk\n",
+    ".ai-dev/runs/_task-template/delivery-report.md": "# Delivery Report\n\n## Summary\n\n## Changed Files\n\n## Runtime / Static / Contract Notes\n\n## Test Evidence\n\n## Code Review Evidence\n\n## Apifox Sync\n\n## Codeup Delivery\n\n## Yuque/DingTalk Draft\n\n## Wiki Follow-up\n\n## Residual Risk\n",
     ".ai-dev/runs/_task-template/wiki-follow-up.md": "# Wiki Follow-up\n\n| ID | Source | Problem | Code Truth | Suggested Wiki Update | Owner | Status |\n| --- | --- | --- | --- | --- | --- | --- |\n",
     ".ai-dev/runs/_task-template/tests/scripts/.gitkeep": "",
     ".ai-dev/runs/_task-template/tests/evidence/.gitkeep": "",
@@ -679,9 +698,9 @@ Values are not printed.
 2. Review `.ai-dev/context/constitution.md`.
 3. Fill `.ai-dev/context/knowledge-sources.md`.
 4. Fill `.ai-dev/context/tool-bindings.md`.
-5. Confirm runtime entrypoints and contracts.
+5. Review candidate runtime/static/contract maps; do not treat them as complete analysis.
 6. Review `.ai-dev/adapters/open-code-review.md` if code review tooling is used.
-7. Start with `feature-delivery`, `assisted-development`, or `quick-check`.
+7. Start with `feature-delivery`, `assisted-development`, or `quick-check`; analyze runtime/static/contracts inside the active run.
 """
 
 
@@ -815,6 +834,7 @@ def main() -> int:
             "Review .ai-dev/context/constitution.md.",
             "Fill .ai-dev/context/knowledge-sources.md.",
             "Fill .ai-dev/context/tool-bindings.md.",
+            "Review candidate runtime/static/contract maps; analyze them per requirement inside the active run.",
             "Review .ai-dev/adapters/open-code-review.md if code review tooling is used.",
             "Start with feature-delivery, assisted-development, or quick-check.",
         ],

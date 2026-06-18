@@ -1,13 +1,13 @@
 ---
 name: project-ai-dev-init
-description: Initialize a real project with an agent-agnostic `.ai-dev` development framework. Use when the user wants to add Codex/Claude shared instructions, external wiki pointers, project constitution, runtime flow and contract context, full/assisted/quick workflows, gates, MCP notes, open-code-review adapter, run templates, and report templates to a target repository without modifying existing skills.
+description: Initialize a real project with an agent-agnostic `.ai-dev` development framework. Use when the user wants to add Codex/Claude shared instructions, external wiki pointers, project constitution, candidate runtime/static/contract context containers, full/assisted/quick workflows, gates, MCP notes, open-code-review adapter, run templates, and report templates to a target repository without modifying existing skills.
 ---
 
 # Project AI Dev Init
 
 Use this skill to bootstrap a business repository with the latest AI development framework.
 
-It creates a project-local `.ai-dev/` framework plus `AGENTS.md`, `CLAUDE.md`, and optional review-tool config. It does not copy global skills into the project, does not change existing skills, and does not write secrets.
+It creates a project-local `.ai-dev/` framework plus `AGENTS.md`, `CLAUDE.md`, and optional review-tool config. Initialization prepares containers and candidate maps; it does not claim that runtime flows or contracts are fully analyzed. It does not copy global skills into the project, does not change existing skills, and does not write secrets.
 
 ## Initialize A Project
 
@@ -33,7 +33,7 @@ Use `--project` for the real project being developed. Use `--wiki-root` to point
 
 - `minimal`: generate the framework skeleton.
 - `standard`: generate the skeleton and fill project profile, tool bindings, code map, test commands, and knowledge-source pointers.
-- `deep`: standard plus broader runtime/contract candidate scanning. This still produces candidates, not truth.
+- `deep`: standard plus broader runtime/static/contract candidate scanning. This still produces candidates, not truth.
 
 ## What It Generates
 
@@ -42,8 +42,9 @@ Use `--project` for the real project being developed. Use `--wiki-root` to point
 - `.ai-dev/instructions/agent-entry.md` as the shared entrypoint.
 - `.ai-dev/context/constitution.md` for non-negotiable AI development rules.
 - `.ai-dev/context/` for knowledge pointers, wiki follow-up rules, and project rules.
-- `.ai-dev/context/runtime/` for runtime flow knowledge.
-- `.ai-dev/context/contracts/` for API, data, business, error, permission, and compatibility contracts.
+- `.ai-dev/context/runtime/` for project-level dynamic runtime flow knowledge.
+- `.ai-dev/context/static/` for project-level static code links, module ownership, dependencies, and call sites.
+- `.ai-dev/context/contracts/` for project-level API, data, business, error, permission, and compatibility contracts.
 - `.ai-dev/harness/workflows/` for full, assisted, and quick modes.
 - `.ai-dev/harness/gates/` for requirement, runtime, contract, atomic-task, context-capsule, review, test, delivery, and state gates.
 - `.ai-dev/harness/eval/` for harness self-check before completion.
@@ -63,6 +64,8 @@ Before feature work, inspect and complete:
 5. `.ai-dev/project-profile.md`
 6. `.ai-dev/mcp/env.example`
 7. `.ai-dev/adapters/open-code-review.md` if code review tooling is used
+
+Initialization-time runtime/static/contract files are candidate maps and empty containers. Do not treat them as completed analysis. Analyze the dynamic flow and static links only when a concrete requirement or code change is active.
 
 Secrets belong in local secret files, not committed project files:
 
@@ -91,6 +94,7 @@ For every requirement, create a task run:
   context-capsule.md
   requirement-summary.md
   runtime-flow.md
+  static-links.md
   contract-checklist.md
   design.md
   development-plan.md
@@ -111,7 +115,7 @@ Follow this order:
 2. Read project profile, constitution, knowledge sources, local rules, code map, and tool bindings.
 3. Select `feature-delivery`, `assisted-development`, or `quick-check`.
 4. Summarize the requirement and open questions.
-5. Map runtime flow and affected contracts before coding when API, data, permissions, or behavior may change.
+5. For existing projects, identify the requirement-specific dynamic runtime flow plus static code and contract links before coding. For empty or greenfield projects, mark existing-flow sections as `N/A` and design the target structure instead.
 6. Create `context-capsule.md`, then write design and an atomic development plan.
 7. Implement scoped code changes.
 8. Write or update reproducible test scripts.
@@ -130,6 +134,6 @@ Testing cannot be claimed complete unless the run includes commands, script path
 - If target `AGENTS.md` or `CLAUDE.md` already exists, append the new entry unless `--force` is used.
 - Prefer `quick-check` for small manual changes and `feature-delivery` for larger requirements.
 - After initialization, ask the user to review `.ai-dev/context/knowledge-sources.md` and `.ai-dev/context/tool-bindings.md`.
-- Treat auto-detected runtime/contracts as candidates. Confirm against real code before relying on them during feature work.
+- Treat auto-detected runtime/static/contracts as candidates. Confirm against real code and the active requirement before relying on them during feature work.
 - If MCP connectivity fails, record the exact non-secret error and the next required user action.
 - If external wiki knowledge is stale or incomplete, finish from code truth and record the suggested wiki update in `wiki-follow-up.md`.
