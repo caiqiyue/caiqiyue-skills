@@ -2,11 +2,39 @@
   "name": "caiqiyue-skills",
   "version": "1.0.0",
   "description": "Cross-platform AI engineering skills for Codex, Claude Code, and OpenCode",
+  "private": true,
+  "scripts": {
+    "validate": "bash scripts/validate-skills.sh"
+  },
+  "codex": {
+    "skills": [
+      {
+        "name": "external-feature-flow",
+        "path": "adapters/codex-skill/external-feature-flow/SKILL.md"
+      },
+      {
+        "name": "paper-ai-review",
+        "path": "adapters/codex-skill/paper-ai-review/SKILL.md"
+      },
+      {
+        "name": "personal-harness",
+        "path": "adapters/codex-skill/personal-harness/SKILL.md"
+      },
+      {
+        "name": "project-ai-dev-init",
+        "path": "adapters/codex-skill/project-ai-dev-init/SKILL.md"
+      },
+      {
+        "name": "word-doc-editor",
+        "path": "adapters/codex-skill/word-doc-editor/SKILL.md"
+      }
+    ]
+  },
   "opencode": {
     "skills": [
       {
         "name": "content-builder",
-        "path": ".agents/skills/content-builder/SKILL.md"
+        "path": "adapters/agent-skills/content-builder/SKILL.md"
       },
       {
         "name": "personal-harness",

@@ -1,0 +1,7 @@
+version: 1
+interface:
+  display_name: External Feature Flow
+  short_description: Standard feature workflow using external tools with unified run archives.
+  default_prompt: Use $external-feature-flow to develop this feature in the current project with OpenSpec, GSD, Superpowers, Graphify, tests, review, Git, Apifox, and Codeup outputs archived under .external-feature/runs/.
+policy:
+  allow_implicit_invocation: true

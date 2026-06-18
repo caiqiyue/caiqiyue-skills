@@ -1,105 +1,70 @@
 # caiqiyue-skills
 
-个人 AI engineering skills 仓库，目标不是堆很多 prompt，而是沉淀一套可复用的 AI 编程治理体系，逐步支持：
+Personal AI engineering skills and adapters.
 
-- `Codex`
-- `Claude Code`
-- `OpenCode`
+This repository is organized as a small skill monorepo. It keeps reusable design assets in `core/`, platform-specific installable artifacts in `adapters/`, operating notes in `docs/`, and repository maintenance helpers in `scripts/`.
 
-当前仓库已经包含两份核心设计文档，以及三端适配中的第一批真实 skill / plugin 入口。
-
-核心设计文档：
-
-- [docs/personal-ai-harness-framework-design.md](docs/personal-ai-harness-framework-design.md)
-- [docs/personal-harness-skill-delivery-plan.md](docs/personal-harness-skill-delivery-plan.md)
-
-它们分别回答：
-
-- 个人 harness 框架本体应该怎么设计
-- 这套框架如何做成可分发、可安装、可维护的跨平台 skill / plugin / adapter
-
-## 当前状态
-
-当前仓库已经进入 **设计 + 第一版实现** 阶段，已经具备三端真实入口，但还不是完全成熟的三端成品。
-
-也就是说：
-
-- 设计文档已经到位
-- `Codex skill` MVP 已经落地
-- `Claude Code plugin` MVP 已经落地
-- `OpenCode adapter` MVP 已经落地
-- OpenCode 风格的现有 skill 资产还在
-- 三端适配已经都有入口，但细分 profile 和同步脚本还没补齐
-
-当前已经可直接查看和复用的真实产物：
-
-- [core/harness-spec](core/harness-spec)
-- [core/templates/project-ai-framework](core/templates/project-ai-framework)
-- [adapters/codex-skill/personal-harness](adapters/codex-skill/personal-harness)
-- [adapters/codex-skill/word-doc-editor](adapters/codex-skill/word-doc-editor)
-- [adapters/claude-plugin/personal-harness-plugin](adapters/claude-plugin/personal-harness-plugin)
-- [adapters/opencode](adapters/opencode)
-
-这很重要，因为安装和使用方式要分两种情况看：
-
-1. **当前仓库怎么使用**
-2. **下一阶段 harness adapter 实现后怎么安装和使用**
-
-## 当前仓库怎么用
-
-如果你现在要理解这套个人 harness，建议按这个顺序读：
-
-1. 先读 [docs/personal-ai-harness-framework-design.md](docs/personal-ai-harness-framework-design.md)  
-   理解 `.ai/` 项目框架、角色分工、验证门、workflow。
-
-2. 再读 [docs/personal-harness-skill-delivery-plan.md](docs/personal-harness-skill-delivery-plan.md)  
-   理解为什么必须做 `core + adapters + scripts`，以及三端分别怎么适配。
-
-3. 然后读 [adapters/codex-skill/personal-harness/SKILL.md](adapters/codex-skill/personal-harness/SKILL.md)  
-   这是第一版真实 `Codex skill`。
-
-4. 再看 [adapters/claude-plugin/personal-harness-plugin](adapters/claude-plugin/personal-harness-plugin) 和 [adapters/opencode](adapters/opencode)  
-   这是 `Claude Code` 和 `OpenCode` 的第一版真实 adapter。
-
-5. 最后读 [docs/skill-installation-and-usage.md](docs/skill-installation-and-usage.md)  
-   看当前已实现的安装/使用方式，以及后续三端完整落地后的路径。
-
-## 计划中的仓库形态
-
-后续这个仓库会逐步演进成下面的结构：
+## Repository Layout
 
 ```text
 caiqiyue-skills/
-├─ docs/
-├─ core/
 ├─ adapters/
-│  ├─ codex-skill/
-│  ├─ codex-plugin/
-│  ├─ claude-plugin/
-│  └─ opencode/
-└─ scripts/
+│  ├─ codex-skill/       # Installable Codex skills
+│  ├─ claude-plugin/     # Claude Code plugin bundle
+│  ├─ opencode/          # OpenCode adapter bundle
+│  └─ agent-skills/      # Generic .agents-style skills kept as adapter assets
+├─ core/
+│  ├─ harness-spec/      # Platform-neutral harness rules and workflow notes
+│  └─ templates/         # Shared project framework templates
+├─ docs/                 # Design, usage, and delivery documentation
+├─ scripts/              # Validation and maintenance helpers
+└─ package.json          # Lightweight inventory metadata
 ```
 
-含义是：
+See [docs/repository-structure.md](docs/repository-structure.md) for the file ownership rules.
 
-- `core/`：唯一事实源，放规则、模板、workflow、verify、profiles
-- `adapters/`：三端各自可安装的真实产物
-- `scripts/`：把 core 同步/生成到各 adapter，避免三套内容漂移
+## Main Codex Skills
 
-## 这套 harness 最核心的两条规则
+| Skill | Purpose |
+|---|---|
+| `project-ai-dev-init` | Initialize a real project with `.ai-dev`, shared Codex/Claude entries, MCP notes, gates, and run templates. |
+| `external-feature-flow` | Standard existing-project feature workflow using external tools such as OpenSpec, GSD, Superpowers, Graphify, OCR, Apifox, Codeup, and Git. |
+| `personal-harness` | Earlier minimal personal harness skill using `.ai` controls. |
+| `paper-ai-review` | Review paper drafts for AI-writing tells. |
+| `word-doc-editor` | Rewrite AI drafts into readable workplace documents. |
 
-- 未经验证不能说完成
-- 一次只做一个 feature，没验证完不能开下一个
+## Platform Adapters
 
-## 下一步建议
+- Codex skills: [adapters/codex-skill](adapters/codex-skill)
+- Claude Code plugin: [adapters/claude-plugin/personal-harness-plugin](adapters/claude-plugin/personal-harness-plugin)
+- OpenCode adapter: [adapters/opencode](adapters/opencode)
+- Generic agent-skill assets: [adapters/agent-skills](adapters/agent-skills)
 
-如果你要继续推进这个仓库，推荐顺序是：
+## Validation
 
-1. 在真实项目里分别试跑 `Codex` / `Claude Code` / `OpenCode` 的当前入口
-2. 把细分 profile 从通用版补成 `langgraph-django-react` / `springboot-vue`
-3. 加上跨端安装验证脚本或手册
-4. 最后补 `scripts/sync-core-to-adapters.*`
+Run:
 
-更细的安装和使用说明见：
+```bash
+bash scripts/validate-skills.sh
+```
 
-- [docs/skill-installation-and-usage.md](docs/skill-installation-and-usage.md)
+The script validates Codex skill frontmatter with the local Codex skill validator when it is available, checks Python helper scripts, and catches whitespace errors with `git diff --check`.
+
+## Current Status
+
+The most actively maintained Codex skills are:
+
+1. `project-ai-dev-init`
+2. `external-feature-flow`
+
+The older `personal-harness` adapters remain in the repository because they document the first cross-platform harness design and still provide useful references. New day-to-day feature work should usually use `external-feature-flow` unless the target project needs the heavier `.ai-dev` framework from `project-ai-dev-init`.
+
+## Installation Notes
+
+For local Codex testing, copy one skill directory into `~/.codex/skills/`, for example:
+
+```bash
+rsync -a --delete adapters/codex-skill/external-feature-flow/ ~/.codex/skills/external-feature-flow/
+```
+
+Do not store API keys or tokens in this repository. Use local environment files or the runtime's secret configuration.
