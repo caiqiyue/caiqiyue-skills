@@ -32,10 +32,11 @@ Before task work, read:
 
 1. `.ai-dev/instructions/agent-entry.md`
 2. `.ai-dev/project-profile.md`
-3. `.ai-dev/context/knowledge-sources.md`
-4. `.ai-dev/context/local-rules.md`
-5. The selected workflow under `.ai-dev/harness/workflows/`
-6. The relevant gates under `.ai-dev/harness/gates/`
+3. `.ai-dev/context/constitution.md`
+4. `.ai-dev/context/knowledge-sources.md`
+5. `.ai-dev/context/local-rules.md`
+6. The selected workflow under `.ai-dev/harness/workflows/`
+7. The relevant gates under `.ai-dev/harness/gates/`
 
 Hard rules:
 
@@ -52,10 +53,11 @@ Before task work, read:
 
 1. `.ai-dev/instructions/agent-entry.md`
 2. `.ai-dev/project-profile.md`
-3. `.ai-dev/context/knowledge-sources.md`
-4. `.ai-dev/context/local-rules.md`
-5. The selected workflow under `.ai-dev/harness/workflows/`
-6. The relevant gates under `.ai-dev/harness/gates/`
+3. `.ai-dev/context/constitution.md`
+4. `.ai-dev/context/knowledge-sources.md`
+5. `.ai-dev/context/local-rules.md`
+6. The selected workflow under `.ai-dev/harness/workflows/`
+7. The relevant gates under `.ai-dev/harness/gates/`
 
 Hard rules:
 
@@ -68,7 +70,7 @@ Hard rules:
 
 This directory is the project-local adapter for external wiki knowledge, harness workflows, skills, and MCP tools.
 
-It stores context pointers, runtime and contract notes, workflows, gates, run artifacts, templates, and MCP usage notes.
+It stores constitution rules, context pointers, runtime and contract notes, workflows, gates, run artifacts, templates, adapters, and MCP usage notes.
 
 It does not store secrets.
 """,
@@ -101,13 +103,15 @@ This is the shared entrypoint for Codex, Claude Code, and other coding agents.
 
 1. Confirm repository root.
 2. Read `.ai-dev/project-profile.md`.
-3. Read `.ai-dev/context/knowledge-sources.md`.
-4. Read `.ai-dev/context/local-rules.md`.
-5. Select one workflow:
+3. Read `.ai-dev/context/constitution.md`.
+4. Read `.ai-dev/context/knowledge-sources.md`.
+5. Read `.ai-dev/context/local-rules.md`.
+6. Select one workflow:
    - `feature-delivery`
    - `assisted-development`
    - `quick-check`
-6. Read the selected workflow and required gates.
+7. Read the selected workflow and required gates.
+8. For feature work, create or update a task run under `.ai-dev/runs/<task-id>/`.
 
 ## Evidence Order
 
@@ -170,6 +174,19 @@ If sources conflict, trust real code for implementation facts and record the kno
 - Match existing project style before introducing new abstractions.
 - Do not change API, data, permission, or compatibility contracts without recording the impact.
 - Do not claim tests passed without reproducible evidence.
+""",
+    ".ai-dev/context/constitution.md": """# Constitution
+
+These rules are the project-local contract for AI-assisted development.
+
+1. Real code and reproducible tests outrank chat history and stale documentation.
+2. External wiki knowledge should shape understanding, but implementation claims must be checked against the repository.
+3. Do not claim completion without command output, script paths, assertions, and actual results.
+4. Runtime flow and contracts must be checked before behavior, API, data, permission, or compatibility changes.
+5. Small tasks may use `quick-check`, but still need a run record and evidence.
+6. Do not print, store, or commit secrets.
+7. If the wiki conflicts with code, finish from code truth and create a wiki follow-up.
+8. Keep task slices atomic enough to review, test, and roll back.
 """,
     ".ai-dev/context/code-map.md": """# Code Map
 
@@ -239,13 +256,15 @@ Use for full AI-led feature delivery.
 2. Read project context and external knowledge sources.
 3. Inspect real code and relevant tests.
 4. Map runtime flow and contracts.
-5. Produce requirement summary, design, and development plan.
-6. Ask for user confirmation when behavior, runtime flow, API, data, or risk is uncertain.
-7. Implement scoped changes.
-8. Review for scope, contracts, runtime integration, and island code.
-9. Write and run reproducible tests.
-10. Record evidence.
-11. Prepare Apifox, Codeup, Yuque, and DingTalk handoff notes when relevant.
+5. Create a run directory from `_task-template` and maintain `context-capsule.md`.
+6. Produce requirement summary, design, and an atomic development plan.
+7. Ask for user confirmation when behavior, runtime flow, API, data, or risk is uncertain.
+8. Implement scoped changes task by task.
+9. Review for scope, contracts, runtime integration, island code, and open-code-review findings when configured.
+10. Write and run reproducible tests.
+11. Record evidence and update the context capsule.
+12. Run harness self-check before delivery.
+13. Prepare Apifox, Codeup, Yuque, and DingTalk handoff notes when relevant.
 """,
     ".ai-dev/harness/workflows/assisted-development.md": """# Assisted Development Workflow
 
@@ -254,10 +273,11 @@ Use when the human writes or drives the code and the agent assists.
 1. Read the user's current change or intended change.
 2. Inspect diff or affected files.
 3. Identify runtime and contract impact.
-4. Review scope, contracts, island code, and test gaps.
-5. Write or propose missing test scripts.
-6. Run requested verification or provide exact commands.
-7. Produce test evidence and delivery notes.
+4. Maintain a lightweight run record and `context-capsule.md`.
+5. Review scope, contracts, island code, test gaps, and open-code-review findings when configured.
+6. Write or propose missing test scripts.
+7. Run requested verification or provide exact commands.
+8. Produce test evidence and delivery notes.
 """,
     ".ai-dev/harness/workflows/quick-check.md": """# Quick Check Workflow
 
@@ -269,16 +289,19 @@ Minimum record:
 2. Changed files or intended files.
 3. API/data/permission/contract impact.
 4. Runtime flow impact.
-5. Test script or command.
-6. Actual result.
-7. Delivery note.
+5. Context capsule with current facts and decisions.
+6. Test script or command.
+7. Actual result.
+8. Delivery note.
 """,
     ".ai-dev/harness/gates/requirement-gate.md": "# Requirement Gate\n\nPass when requirement source, behavior, scope, non-goals, open questions, and selected mode are recorded.\n",
     ".ai-dev/harness/gates/runtime-flow-gate.md": "# Runtime Flow Gate\n\nPass when entrypoint, modules, data, async/scheduled behavior, config, failure handling, and observability are recorded or blockers are listed.\n",
     ".ai-dev/harness/gates/contract-gate.md": "# Contract Gate\n\nPass when API, data, business, error, permission, and compatibility contracts are checked. Do not silently change contracts.\n",
     ".ai-dev/harness/gates/design-gate.md": "# Design Gate\n\nPass when requirement summary, runtime flow, contract checklist, affected code paths, risks, rollback, and verification focus exist.\n",
     ".ai-dev/harness/gates/implementation-gate.md": "# Implementation Gate\n\nPass when changes are scoped, style matches project conventions, and new code is connected to runtime flow.\n",
-    ".ai-dev/harness/gates/code-review-gate.md": "# Code Review Gate\n\nPass when scope, security, permissions, runtime integration, contract safety, errors, tests, and `No orphan module / no island code` are checked.\n",
+    ".ai-dev/harness/gates/atomic-task-gate.md": "# Atomic Task Gate\n\nPass when each implementation task has an objective, affected files, dependencies, verification, and a deterministic pass/fail result.\n\nGood task size: small enough to review, test, and roll back independently.\n",
+    ".ai-dev/harness/gates/context-capsule-gate.md": "# Context Capsule Gate\n\nPass when the active run has `context-capsule.md` with current goal, confirmed facts, decisions, changed files, tests run, open blockers, and next step.\n",
+    ".ai-dev/harness/gates/code-review-gate.md": "# Code Review Gate\n\nPass when scope, security, permissions, runtime integration, contract safety, errors, tests, and `No orphan module / no island code` are checked.\n\nIf open-code-review is configured, save its raw output under the active run's `review/` directory, classify findings, and record fixes or accepted risks.\n",
     ".ai-dev/harness/gates/test-gate.md": "# Test Gate\n\nPass when evidence includes script paths or commands, inputs, expected assertions, actual results, rerun history, unrun risks, and runtime/contract coverage notes.\n",
     ".ai-dev/harness/gates/apifox-gate.md": "# Apifox Gate\n\nPass when API contract impact is checked and Apifox update needs are recorded.\n",
     ".ai-dev/harness/gates/codeup-delivery-gate.md": "# Codeup Delivery Gate\n\nPass before push/MR when git status, diff, secrets, unrelated files, commit/MR notes, verification evidence, and user approval are checked.\n",
@@ -296,28 +319,81 @@ Minimum record:
     ".ai-dev/mcp/tool-usage.md": "# MCP Tool Usage\n\n- Use Yuque for PRD and internal docs when configured.\n- Use Apifox before changing API fields.\n- Use Codeup for branch, MR, work item, or pipeline context.\n- Draft DingTalk messages first; send only with explicit approval.\n",
     ".ai-dev/mcp/codex-config.example.toml": "[mcp_servers.apifox_api_docs]\ncommand = \"/path/to/apifox-wrapper.sh\"\n\n[mcp_servers.yunxiao_codeup]\ncommand = \"/path/to/yunxiao-wrapper.sh\"\n",
     ".ai-dev/mcp/claude-mcp.example.json": '{\n  "mcpServers": {\n    "apifox_api_docs": {\n      "command": "npx",\n      "args": ["-y", "apifox-mcp-server@latest", "--project-id=${APIFOX_PROJECT_ID}"],\n      "env": {"APIFOX_ACCESS_TOKEN": "${APIFOX_ACCESS_TOKEN}"}\n    },\n    "yunxiao_codeup": {\n      "command": "npx",\n      "args": ["-y", "alibabacloud-devops-mcp-server"],\n      "env": {"YUNXIAO_ACCESS_TOKEN": "${YUNXIAO_ACCESS_TOKEN}"}\n    }\n  }\n}\n',
+    ".ai-dev/adapters/open-code-review.md": """# Open Code Review Adapter
+
+Use this adapter when `alibaba/open-code-review` is available for an extra review pass.
+
+## Setup
+
+- Keep credentials outside the repository.
+- Project rules live in `.opencodereview/rule.json`.
+- Confirm the tool works before relying on it for delivery.
+
+## Suggested Run
+
+```bash
+mkdir -p .ai-dev/runs/<task-id>/review
+ocr llm test
+ocr review --format json > .ai-dev/runs/<task-id>/review/open-code-review.json
+```
+
+If the project uses branch comparison, prefer the team's supported `from` and `to` arguments and record the exact command.
+
+## Required Handling
+
+1. Save raw output under `.ai-dev/runs/<task-id>/review/`.
+2. Classify findings as `blocker`, `should-fix`, `note`, or `false-positive`.
+3. Fix blockers before delivery unless the user explicitly accepts the risk.
+4. Record fixes and remaining risks in `code-review.md` and `delivery-report.md`.
+5. Do not auto-apply patches without reviewing the diff.
+""",
+    ".ai-dev/harness/eval/harness-self-check.md": """# Harness Self Check
+
+Run before claiming a task is complete.
+
+## Checklist
+
+- Requirement source and selected mode are recorded.
+- External wiki sources consulted or explicitly marked not needed.
+- Code evidence includes real file paths.
+- Runtime flow impact is recorded.
+- Contract impact is recorded.
+- Development plan is split into atomic tasks when more than one code step is needed.
+- Test scripts or commands are reproducible.
+- Actual test results are saved under the run directory.
+- Code review findings are classified.
+- Apifox / Codeup / Yuque / DingTalk follow-up is recorded when relevant.
+- `context-capsule.md`, `test-report.md`, and `delivery-report.md` are current.
+""",
+    ".opencodereview/rule.json": '{\n  "rules": [\n    {\n      "path": "**/*",\n      "rule": "Review for scoped changes, runtime integration, contract compatibility, permission safety, error handling, and missing tests. Flag unused island code and unverifiable behavior claims."\n    },\n    {\n      "path": "**/*.{ts,tsx,js,jsx}",\n      "rule": "Check async errors, null or undefined handling, API response shape changes, state updates, and user-visible regressions."\n    },\n    {\n      "path": "**/*.{py}",\n      "rule": "Check input validation, exception handling, data boundary assumptions, and missing pytest or integration coverage."\n    },\n    {\n      "path": "**/*.{java,kt}",\n      "rule": "Check transaction boundaries, permission checks, DTO compatibility, null safety, and service/controller wiring."\n    }\n  ],\n  "exclude": [\n    "**/generated/**",\n    "vendor/**",\n    "node_modules/**",\n    "dist/**",\n    "build/**"\n  ]\n}\n',
     ".ai-dev/templates/requirement-summary.md": "# Requirement Summary\n\n- Source:\n- Goal:\n- In scope:\n- Out of scope:\n- Open questions:\n",
     ".ai-dev/templates/runtime-flow.md": "# Runtime Flow\n\n- Entrypoint:\n- Modules:\n- Data read:\n- Data written:\n- External calls:\n- Async/scheduled behavior:\n- Config switches:\n- Failure handling:\n- Observability:\n",
     ".ai-dev/templates/contract-checklist.md": "# Contract Checklist\n\n- API contracts:\n- Data contracts:\n- Business rules:\n- Error contracts:\n- Permission contracts:\n- Compatibility contracts:\n- Intentional changes:\n- Risks:\n",
     ".ai-dev/templates/design.md": "# Design\n\n## Requirement\n\n## Runtime Flow\n\n## Contracts\n\n## Implementation Plan\n\n## Risks And Rollback\n\n## Verification Focus\n",
-    ".ai-dev/templates/development-plan.md": "# Development Plan\n\n- Task:\n- Files:\n- Steps:\n- Verification:\n- Risks:\n",
-    ".ai-dev/templates/code-review.md": "# Code Review\n\n- Scope fit:\n- Runtime integration:\n- Contract safety:\n- Security/permissions:\n- Error handling:\n- Test coverage:\n- Island-code check:\n- Findings:\n",
+    ".ai-dev/templates/context-capsule.md": "# Context Capsule\n\n## Current Goal\n\n## Confirmed Facts\n\n## Key Decisions\n\n## Runtime / Contract Constraints\n\n## Changed Files\n\n## Tests Run\n\n## Open Questions / Blockers\n\n## Next Step\n",
+    ".ai-dev/templates/development-plan.md": "# Development Plan\n\n## Summary\n\n- Task:\n- Files:\n- Verification:\n- Risks:\n\n## Atomic Tasks\n\n| ID | Objective | Files | Depends On | Verification | Status |\n| --- | --- | --- | --- | --- | --- |\n",
+    ".ai-dev/templates/code-review.md": "# Code Review\n\n- Scope fit:\n- Runtime integration:\n- Contract safety:\n- Security/permissions:\n- Error handling:\n- Test coverage:\n- Island-code check:\n\n## Open Code Review\n\n- Tool used:\n- Command:\n- Raw output path:\n- Findings classified:\n\n## Findings\n\n| ID | Source | Severity | File | Finding | Action | Status |\n| --- | --- | --- | --- | --- | --- | --- |\n",
     ".ai-dev/templates/bug-list.md": "# Bug List\n\n| ID | Source | Description | Severity | Fix | Retest |\n| --- | --- | --- | --- | --- | --- |\n",
     ".ai-dev/templates/test-report.md": "# Test Report\n\n| Test | Purpose | Script/Command | Input | Expected | Actual | Runtime Flow | Contract | Status |\n| --- | --- | --- | --- | --- | --- | --- | --- | --- |\n\n## Failures And Reruns\n\n## Unrun Tests And Risk\n",
-    ".ai-dev/templates/delivery-report.md": "# Delivery Report\n\n## Summary\n\n## Changed Files\n\n## Runtime And Contract Notes\n\n## Test Evidence\n\n## Apifox Sync\n\n## Codeup Delivery\n\n## Yuque/DingTalk Draft\n\n## Residual Risk\n",
-    ".ai-dev/templates/quick-check.md": "# Quick Check\n\n- Requirement:\n- Changed files:\n- API/data/permission/contract impact:\n- Runtime impact:\n- Test script or command:\n- Actual result:\n- Delivery note:\n",
+    ".ai-dev/templates/delivery-report.md": "# Delivery Report\n\n## Summary\n\n## Changed Files\n\n## Runtime And Contract Notes\n\n## Test Evidence\n\n## Code Review Evidence\n\n## Apifox Sync\n\n## Codeup Delivery\n\n## Yuque/DingTalk Draft\n\n## Wiki Follow-up\n\n## Residual Risk\n",
+    ".ai-dev/templates/wiki-follow-up.md": "# Wiki Follow-up\n\n| ID | Source | Problem | Code Truth | Suggested Wiki Update | Owner | Status |\n| --- | --- | --- | --- | --- | --- | --- |\n",
+    ".ai-dev/templates/quick-check.md": "# Quick Check\n\n- Requirement:\n- Changed files:\n- API/data/permission/contract impact:\n- Runtime impact:\n- Context capsule path:\n- Test script or command:\n- Actual result:\n- Delivery note:\n",
+    ".ai-dev/runs/_task-template/context-capsule.md": "# Context Capsule\n\n## Current Goal\n\n## Confirmed Facts\n\n## Key Decisions\n\n## Runtime / Contract Constraints\n\n## Changed Files\n\n## Tests Run\n\n## Open Questions / Blockers\n\n## Next Step\n",
+    ".ai-dev/runs/_task-template/requirement-summary.md": "# Requirement Summary\n\n- Source:\n- Goal:\n- In scope:\n- Out of scope:\n- Open questions:\n",
+    ".ai-dev/runs/_task-template/runtime-flow.md": "# Runtime Flow\n\n- Entrypoint:\n- Modules:\n- Data read:\n- Data written:\n- External calls:\n- Async/scheduled behavior:\n- Config switches:\n- Failure handling:\n- Observability:\n",
+    ".ai-dev/runs/_task-template/contract-checklist.md": "# Contract Checklist\n\n- API contracts:\n- Data contracts:\n- Business rules:\n- Error contracts:\n- Permission contracts:\n- Compatibility contracts:\n- Intentional changes:\n- Risks:\n",
+    ".ai-dev/runs/_task-template/design.md": "# Design\n\n## Requirement\n\n## Runtime Flow\n\n## Contracts\n\n## Implementation Plan\n\n## Risks And Rollback\n\n## Verification Focus\n",
+    ".ai-dev/runs/_task-template/development-plan.md": "# Development Plan\n\n## Summary\n\n- Task:\n- Files:\n- Verification:\n- Risks:\n\n## Atomic Tasks\n\n| ID | Objective | Files | Depends On | Verification | Status |\n| --- | --- | --- | --- | --- | --- |\n",
+    ".ai-dev/runs/_task-template/code-review.md": "# Code Review\n\n- Scope fit:\n- Runtime integration:\n- Contract safety:\n- Security/permissions:\n- Error handling:\n- Test coverage:\n- Island-code check:\n\n## Open Code Review\n\n- Tool used:\n- Command:\n- Raw output path:\n- Findings classified:\n\n## Findings\n\n| ID | Source | Severity | File | Finding | Action | Status |\n| --- | --- | --- | --- | --- | --- | --- |\n",
+    ".ai-dev/runs/_task-template/bug-list.md": "# Bug List\n\n| ID | Source | Description | Severity | Fix | Retest |\n| --- | --- | --- | --- | --- | --- |\n",
+    ".ai-dev/runs/_task-template/test-report.md": "# Test Report\n\n| Test | Purpose | Script/Command | Input | Expected | Actual | Runtime Flow | Contract | Status |\n| --- | --- | --- | --- | --- | --- | --- | --- | --- |\n\n## Failures And Reruns\n\n## Unrun Tests And Risk\n",
+    ".ai-dev/runs/_task-template/delivery-report.md": "# Delivery Report\n\n## Summary\n\n## Changed Files\n\n## Runtime And Contract Notes\n\n## Test Evidence\n\n## Code Review Evidence\n\n## Apifox Sync\n\n## Codeup Delivery\n\n## Yuque/DingTalk Draft\n\n## Wiki Follow-up\n\n## Residual Risk\n",
+    ".ai-dev/runs/_task-template/wiki-follow-up.md": "# Wiki Follow-up\n\n| ID | Source | Problem | Code Truth | Suggested Wiki Update | Owner | Status |\n| --- | --- | --- | --- | --- | --- | --- |\n",
+    ".ai-dev/runs/_task-template/tests/scripts/.gitkeep": "",
+    ".ai-dev/runs/_task-template/tests/evidence/.gitkeep": "",
+    ".ai-dev/runs/_task-template/review/.gitkeep": "",
     ".ai-dev/runs/.gitkeep": "",
 }
-
-
-TOKEN_KEYS = [
-    "YUQUE_TOKEN",
-    "DINGTALK_Client_ID",
-    "DINGTALK_Client_Secret",
-    "YUNXIAO_ACCESS_TOKEN",
-    "APIFOX_ACCESS_TOKEN",
-    "APIFOX_PROJECT_ID",
-]
 
 
 def detect_stack(project: Path) -> str:
@@ -600,10 +676,12 @@ Values are not printed.
 ## Next Steps
 
 1. Review `AGENTS.md` and `CLAUDE.md`.
-2. Fill `.ai-dev/context/knowledge-sources.md`.
-3. Fill `.ai-dev/context/tool-bindings.md`.
-4. Confirm runtime entrypoints and contracts.
-5. Start with `feature-delivery`, `assisted-development`, or `quick-check`.
+2. Review `.ai-dev/context/constitution.md`.
+3. Fill `.ai-dev/context/knowledge-sources.md`.
+4. Fill `.ai-dev/context/tool-bindings.md`.
+5. Confirm runtime entrypoints and contracts.
+6. Review `.ai-dev/adapters/open-code-review.md` if code review tooling is used.
+7. Start with `feature-delivery`, `assisted-development`, or `quick-check`.
 """
 
 
@@ -734,8 +812,10 @@ def main() -> int:
         "skippedExisting": skipped,
         "nextSteps": [
             "Review AGENTS.md and CLAUDE.md.",
+            "Review .ai-dev/context/constitution.md.",
             "Fill .ai-dev/context/knowledge-sources.md.",
             "Fill .ai-dev/context/tool-bindings.md.",
+            "Review .ai-dev/adapters/open-code-review.md if code review tooling is used.",
             "Start with feature-delivery, assisted-development, or quick-check.",
         ],
     }
